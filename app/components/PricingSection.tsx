@@ -35,7 +35,7 @@ const PLANS = [
 
 export function PricingSection() {
   return (
-    <section className="bg-[#1d1d1d] pb-section pt-[5rem] text-white md:pb-section-lg md:pt-[6rem]">
+    <section className="bg-[#1d1d1d] pb-[10rem] pt-[5rem] text-white md:pb-[12rem] md:pt-[6rem] rounded-t-[48px] md:rounded-t-[60px]">
       <div className="mx-auto w-full max-w-[1920px] px-4 md:px-0">
         <div className="flex flex-col items-center gap-8 md:gap-10">
           {/* 상단 타이틀 */}

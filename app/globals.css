@@ -52,4 +52,13 @@
     animation: logos-marquee 60s linear infinite;
     will-change: transform;
   }
+
+  /* 드래그 슬라이더용: 스크롤바 숨기기 */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
