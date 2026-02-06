@@ -128,8 +128,8 @@ export function ProcessSection() {
                 <Image
                   src={`/images/process/Process-${String((activeIndex - 1 + 4) % 4 + 1).padStart(2, "0")}.png`}
                   alt="이전 단계"
-                  width={1200}
-                  height={600}
+                  width={1582}
+                  height={796}
                   className="h-auto w-full"
                 />
               </div>
@@ -148,8 +148,8 @@ export function ProcessSection() {
                 <Image
                   src={`/images/process/Process-${String(activeIndex + 1).padStart(2, "0")}.png`}
                   alt={PROCESS_STEPS[activeIndex].tabLabel}
-                  width={1200}
-                  height={600}
+                  width={1582}
+                  height={796}
                   className="h-auto w-full"
                   priority
                 />
@@ -169,8 +169,8 @@ export function ProcessSection() {
                 <Image
                   src={`/images/process/Process-${String((activeIndex + 1) % 4 + 1).padStart(2, "0")}.png`}
                   alt="다음 단계"
-                  width={1200}
-                  height={600}
+                  width={1582}
+                  height={796}
                   className="h-auto w-full"
                 />
               </div>

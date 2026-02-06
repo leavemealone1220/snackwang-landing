@@ -8,7 +8,17 @@
       "WebFetch(domain:www.figma.com)",
       "Bash(claude mcp remove:*)",
       "Bash(dir:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(node -e:*)",
+      "Bash(powershell:*)",
+      "WebSearch",
+      "mcp__figma__get_figma_data",
+      "Bash(npx next build:*)",
+      "Bash(ping:*)",
+      "Bash(npx kill-port:*)",
+      "mcp__figma__download_figma_images"
     ]
   }
 }
