@@ -21,7 +21,9 @@ export default function Home() {
       <CustomizationSection />
       <ThemeSection />
       <ProcessSection />
-      <FAQSection />
+      <div className="bg-[#f6f5ee] pt-[80px]">
+        <FAQSection />
+      </div>
       <StatsSection />
       <FinalCTASection />
       <FooterSection />

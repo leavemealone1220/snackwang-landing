@@ -39,7 +39,7 @@ const STATS_CARDS = [
 
 export function StatsSection() {
   return (
-    <section className="bg-[#313131]">
+    <section className="relative z-[2] rounded-t-[48px] md:rounded-t-[60px] bg-[#313131] overflow-hidden">
       <div className="mx-auto w-full max-w-[1920px] px-4 md:px-[60px] py-[80px] md:py-[120px] lg:py-[180px]">
         <div className="mx-auto max-w-[1132px] flex flex-col lg:flex-row gap-[40px] lg:gap-[60px]">
           {/* 좌측 텍스트 */}

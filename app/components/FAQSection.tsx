@@ -3,215 +3,449 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
-type BubbleItem = {
-  type: "question" | "answer";
-  text: string;
-  topPct: number;
-  hasLogo?: boolean;
-  continued?: boolean;
-};
-
-const CHAT_ITEMS: BubbleItem[] = [
-  { type: "question", text: "설비는 무료로 제공되나요?", topPct: 14.4 },
-  {
-    type: "answer",
-    text: "편리하고 깨끗한 간식 공간을 가질 수 있도록\n스낵왕에서는 컨설팅 후 딱 맞는\n다양한 설비를 무료로 임대해드립니다.",
-    topPct: 19.0,
-    hasLogo: true,
-  },
-  { type: "question", text: "주문한 간식은 한꺼번에 배송되나요?", topPct: 28.3 },
-  {
-    type: "answer",
-    text: "첫 주문 시 스낵왕 자체 데이터를 통해 큐레이션 되며,\n지속적으로 스낵왕 매니저가 선호, 비선호 간식을\n모니터링하여 고객 피드백 반영과 함께\n매달 다양한 큐레이션이 제공됩니다.",
-    topPct: 32.9,
-    hasLogo: true,
-  },
-  {
-    type: "question",
-    text: "먹지 않은 간식이나 간식이\n마음에 들지 않으면 어쩌죠?",
-    topPct: 42.2,
-  },
-  {
-    type: "answer",
-    text: "스낵왕 방문 관리 서비스를 이용 시\n비선호 간식은 선호 간식으로 대체 되거나\n교환 · 환불을 해드립니다.",
-    topPct: 46.7,
-    hasLogo: true,
-  },
-  {
-    type: "answer",
-    text: "또한 교환 · 환불은 스낵왕에서는 무료로\n진행됩니다.",
-    topPct: 54.7,
-    continued: true,
-  },
-  { type: "question", text: "피드백 전달은 어떻게 하나요?", topPct: 62.5 },
-  {
-    type: "answer",
-    text: "전용 피드백 페이지를 공유해드리며\n1:1 전담 매니저를 통해 24시간\n지속적으로 피드백 전달이 가능합니다.",
-    topPct: 67.0,
-    hasLogo: true,
-  },
-  { type: "question", text: "결제는 어떻게 하나요?", topPct: 74.7 },
-  {
-    type: "answer",
-    text: "방문 관리 서비스 : 해당하는 월에 제공되는\n간식을 월말에 계산\n정기 구독 서비스 : 상담 후 구독 개월 수에\n맞게 결제, 원하는 날짜에 배송 및\n중도 취소가 가능합니다.",
-    topPct: 79.3,
-    hasLogo: true,
-  },
-];
+/**
+ * FAQ Section – 1920px 고정 레이아웃 (Figma px 값 그대로)
+ *
+ * Figma 기준점: Blue BG 좌상단 (절대 y=7369) = (0, 0)
+ * 원본 노드: 1:10692 / 파일키: aEsmYRndNsOoXzftZLkHzB
+ * Blue BG: 1920 x 2478, rounded-t 100px
+ */
 
 export function FAQSection() {
-  const phoneRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const [visibleCount, setVisibleCount] = useState(0);
+  const [scale, setScale] = useState(1);
+
+  /* 뷰포트 너비에 맞춰 1920px 레이아웃 축소 (양쪽 60px 여백 반영) */
+  useEffect(() => {
+    const updateScale = () => {
+      setScale(Math.min(0.75, (window.innerWidth - 120) / 1920));
+    };
+    updateScale();
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!phoneRef.current) return;
-      const rect = phoneRef.current.getBoundingClientRect();
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
       const vh = window.innerHeight;
       if (rect.top > vh) {
         setVisibleCount(0);
         return;
       }
       const scrollPast = vh - rect.top;
-      setVisibleCount(Math.min(CHAT_ITEMS.length, Math.floor(scrollPast / 55)));
+      setVisibleCount(Math.min(11, Math.floor(scrollPast / 60)));
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  return (
-    <section className="relative">
-      {/* 수박 – 위 섹션에 걸침 */}
-      <div className="absolute z-20 pointer-events-none left-[16%] top-0 w-[80px] md:w-[110px] lg:w-[140px] -translate-y-1/2">
-        <Image src="/images/faq/faq-watermelon.png" alt="" width={303} height={304} className="w-full h-auto" />
-      </div>
+  /* 버블 등장 애니메이션 유틸 */
+  const bubble = (idx: number) => {
+    const isVisible = visibleCount > idx;
+    const delay = idx * 80;
+    return {
+      className: `absolute ${isVisible ? "opacity-100" : "opacity-0"}`,
+      style: {
+        transform: isVisible ? "translateY(0)" : "translateY(-35px)",
+        transition: `opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) ${delay}ms, transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) ${delay}ms`,
+      } as React.CSSProperties,
+    };
+  };
 
-      {/* 파란 배경 */}
-      <div className="bg-[#02ACEA] rounded-t-[60px] md:rounded-t-[100px] relative overflow-hidden">
-        {/* 노란 배경 패턴 – 하단 50% */}
+  return (
+    <section
+      ref={sectionRef}
+      className="relative"
+      style={{
+        height: `${2478 * scale}px`,
+        marginBottom: "-250px",
+        overflowX: "clip",
+        overflowY: "visible",
+      }}
+    >
+      {/* ── 전체 너비 파란 배경 ── */}
+      <div
+        className="absolute inset-0 bg-[#02ACEA]"
+        style={{ borderRadius: `${Math.round(100 * scale)}px ${Math.round(100 * scale)}px 0 0` }}
+      />
+
+      {/* ── 전체 너비 노란 곡선 배경 ── */}
+      <div
+        className="absolute bottom-0 left-0 w-full pointer-events-none"
+        style={{
+          height: "61.2%",
+          background: "#FFC845",
+          borderRadius: "50% 50% 0 0 / 150px 150px 0 0",
+        }}
+      />
+
+      {/* ── 스케일 래퍼: 오브제만 축소 ── */}
+      <div
+        style={{
+          width: "1920px",
+          height: "2478px",
+          transform: `scale(${scale})`,
+          transformOrigin: "top center",
+          position: "absolute",
+          left: "50%",
+          marginLeft: "-960px",
+        }}
+      >
+        {/* ── 수박: 위 섹션과 겹침 ── */}
+        {/* Figma: left 314, top -52 (Blue BG 위로 삐져나옴), 303×304 */}
         <div
-          className="absolute bottom-0 left-0 w-full pointer-events-none overflow-hidden"
-          style={{ maxHeight: "50%" }}
+          className="absolute z-20 pointer-events-none"
+          style={{
+            left: "314px",
+            top: "-52px",
+            width: "303px",
+          }}
         >
           <Image
-            src="/images/faq/faq-bg-pattern.png.png"
+            src="/images/faq/faq-watermelon.png"
             alt=""
-            width={1920}
-            height={1326}
-            className="w-full h-auto"
+            width={378}
+            height={387}
+            style={{ width: "303px", height: "auto", transform: "rotate(-30deg)" }}
           />
         </div>
 
-        {/* 콘텐츠 */}
-        <div className="relative z-10 px-4 md:px-[60px] pt-[70px] md:pt-[100px] lg:pt-[120px] pb-[60px] md:pb-[100px] lg:pb-[140px]">
-          {/* 타이틀 */}
-          <div className="text-center mb-[30px] md:mb-[40px] lg:mb-[50px]">
-            <p className="text-[#F8F8F9]/60 text-[14px] md:text-[18px] lg:text-[24px] font-medium tracking-[-0.02em] leading-[1.4] mb-2 md:mb-3">
-              Q&A
-            </p>
-            <h2 className="text-[#F8F8F9] text-[24px] md:text-[36px] lg:text-[56px] font-extrabold tracking-[-0.015em] leading-[1.4]">
-              한 입에 쏙! 궁금증을 해결해드립니다.
-            </h2>
+        {/* ── 1920px 고정 컨테이너 (배경 없음, 콘텐츠만) ── */}
+        <div
+          className="relative mx-auto"
+          style={{ width: "1920px", height: "2478px" }}
+        >
+          {/* ═══════ 타이틀 ═══════ */}
+          <p
+            className="absolute text-center text-[#F8F8F9]/60 font-medium leading-[1.4]"
+            style={{
+              left: "50%",
+              top: "180px",
+              transform: "translateX(-50%)",
+              width: "786px",
+              fontSize: "24px",
+              letterSpacing: "-0.48px",
+            }}
+          >
+            Q&A
+          </p>
+          <p
+            className="absolute text-center text-[#F8F8F9] leading-[1.4]"
+            style={{
+              left: "50%",
+              top: "234px",
+              transform: "translateX(-50%)",
+              width: "911px",
+              fontSize: "56px",
+              letterSpacing: "-0.84px",
+            }}
+          >
+            <span className="font-medium">한 입에 쏙! </span>
+            <span className="font-extrabold">궁금증을 해결해드립니다.</span>
+          </p>
+
+          {/* ═══════ 음식 장식 (파란 영역) ═══════ */}
+
+          {/* 도넛 – Figma: left 272, top 645 (481+164), 300×282, rotate -20deg */}
+          <div
+            className="absolute pointer-events-none"
+            style={{ left: "272px", top: "645px", width: "300px" }}
+          >
+            <div style={{ transform: "rotate(-20deg)" }}>
+              <Image src="/images/faq/faq-donut.png" alt="" width={799} height={751} style={{ width: "300px", height: "auto" }} />
+            </div>
           </div>
 
-          {/* 폰 + 장식 영역 */}
-          <div className="relative max-w-[1400px] mx-auto">
-            {/* 도넛 */}
-            <div className="absolute pointer-events-none hidden lg:block z-0 left-0 top-[18%] w-[140px] xl:w-[190px]">
-              <Image src="/images/faq/faq-donut.png" alt="" width={378} height={368} className="w-full h-auto" />
+          {/* 붕어빵 – Figma: left 1308, top 651, 250×182 */}
+          <div
+            className="absolute pointer-events-none"
+            style={{ left: "1308px", top: "651px", width: "250px" }}
+          >
+            <Image src="/images/faq/faq-fishbread.png" alt="" width={469} height={342} style={{ width: "250px", height: "auto" }} />
+          </div>
+
+          {/* 도시락 – Figma: left 1219, top 1062 (898+164), 350×350, rotate 30deg */}
+          <div
+            className="absolute pointer-events-none"
+            style={{ left: "1219px", top: "1062px", width: "350px" }}
+          >
+            <div style={{ transform: "rotate(30deg)" }}>
+              <Image src="/images/faq/faq-lunchbox.png" alt="" width={2095} height={2122} style={{ width: "350px", height: "auto" }} />
             </div>
-            {/* 붕어빵 */}
-            <div className="absolute pointer-events-none hidden lg:block z-0 right-[6%] top-[14%] w-[90px] xl:w-[125px]">
-              <Image src="/images/faq/faq-fishbread.png" alt="" width={250} height={182} className="w-full h-auto" />
+          </div>
+
+          {/* ═══════ 음식 장식 (노란 영역) ═══════ */}
+
+          {/* 아이스크림 – Figma: left 196, top 1521, 299×725 */}
+          <div
+            className="absolute pointer-events-none"
+            style={{ left: "196px", top: "1521px", width: "299px" }}
+          >
+            <Image src="/images/faq/faq-icecream.png" alt="" width={559} height={1356} style={{ width: "299px", height: "auto" }} />
+          </div>
+
+          {/* 샐러드 – Figma: left -73, top 1748, 399×507 */}
+          <div
+            className="absolute pointer-events-none"
+            style={{ left: "-73px", top: "1748px", width: "399px" }}
+          >
+            <Image src="/images/faq/faq-salad.png" alt="" width={316} height={408} style={{ width: "399px", height: "auto" }} />
+          </div>
+
+          {/* 핫도그 – Figma: top 1784, rotate 158.96deg scaleY(-1) */}
+          <div
+            className="absolute pointer-events-none"
+            style={{
+              left: "280px",
+              top: "1784px",
+              width: "500px",
+              transform: "rotate(158.96deg) scaleY(-1)",
+            }}
+          >
+            <Image src="/images/faq/faq-hotdog.png" alt="" width={775} height={793} style={{ width: "500px", height: "auto" }} />
+          </div>
+
+          {/* 감자튀김 – Figma: left 1476, top 1536, 349×493 */}
+          <div
+            className="absolute pointer-events-none"
+            style={{ left: "1476px", top: "1536px", width: "349px" }}
+          >
+            <Image src="/images/faq/faq-fries.png" alt="" width={764} height={1080} style={{ width: "349px", height: "auto" }} />
+          </div>
+
+          {/* 햄버거 – Figma: left 1093, top 1776, 599×589 */}
+          <div
+            className="absolute pointer-events-none"
+            style={{ left: "1093px", top: "1776px", width: "599px" }}
+          >
+            <Image src="/images/faq/faq-hamburger.png" alt="" width={814} height={801} style={{ width: "599px", height: "auto" }} />
+          </div>
+
+          {/* 쿠키 – Figma: left 1626, top 1827, 499×459 */}
+          <div
+            className="absolute pointer-events-none"
+            style={{ left: "1626px", top: "1827px", width: "499px" }}
+          >
+            <Image src="/images/faq/faq-cookie.png" alt="" width={851} height={783} style={{ width: "499px", height: "auto" }} />
+          </div>
+
+          {/* ═══════ 폰 영역 ═══════ */}
+
+          {/* 폰 스크린 배경 (흰색) – Figma: left 570, top 537, 781×1399 */}
+          <div
+            className="absolute bg-white"
+            style={{
+              left: "570px",
+              top: "537px",
+              width: "781px",
+              height: "1399px",
+              borderRadius: "40px",
+              zIndex: 2,
+            }}
+          />
+
+          {/* 폰 하단 입력 바 배경 – Figma: left 570, top 1796, 781×144 */}
+          <div
+            className="absolute bg-white"
+            style={{
+              left: "570px",
+              top: "1796px",
+              width: "781px",
+              height: "144px",
+              borderBottomLeftRadius: "40px",
+              borderBottomRightRadius: "40px",
+              zIndex: 8,
+            }}
+          />
+
+          {/* 메시지 입력 필드 – Figma: left 690, top 1833, 427×70, bg #EEEDE9 */}
+          <div
+            className="absolute flex items-center"
+            style={{
+              left: "690px",
+              top: "1833px",
+              width: "427px",
+              height: "70px",
+              background: "#EEEDE9",
+              borderRadius: "30px",
+              zIndex: 9,
+            }}
+          >
+            <span
+              className="text-[#ADADAD] font-medium"
+              style={{ fontSize: "16px", letterSpacing: "-0.32px", marginLeft: "30px" }}
+            >
+              Type Message
+            </span>
+          </div>
+
+          {/* 폰 프레임 (베젤) – Figma: left 570, top 382, 781×1558 */}
+          <Image
+            src="/images/faq/faq-phone-frame.png"
+            alt=""
+            width={1562}
+            height={3116}
+            className="absolute pointer-events-none select-none"
+            style={{ left: "570px", top: "382px", width: "781px", height: "auto", zIndex: 10 }}
+            priority
+          />
+
+          {/* ═══════ 답변 로고 ═══════ */}
+          {/* Figma: left 620, size 42×42, tops: 678/894/1110/1426/1617 */}
+          {[678, 894, 1110, 1426, 1617].map((top, i) => (
+            <div
+              key={`logo-${i}`}
+              className="absolute"
+              style={{ left: "620px", top: `${top}px`, width: "42px", height: "42px", zIndex: 12 }}
+            >
+              <Image
+                src="/images/faq/faq-answer-logo.png"
+                alt=""
+                width={42}
+                height={42}
+                className="rounded-full"
+                style={{ width: "42px", height: "42px" }}
+              />
             </div>
-            {/* 도시락 */}
-            <div className="absolute pointer-events-none hidden lg:block z-0 right-[1%] top-[40%] w-[170px] xl:w-[240px]">
-              <Image src="/images/faq/faq-lunchbox.png" alt="" width={478} height={478} className="w-full h-auto" />
+          ))}
+
+          {/* ═══════ 질문 버블 (보라색, #7B79FF) ═══════ */}
+
+          {/* Q1: 설비는 무료로 제공되나요? – left 1077, top 607 */}
+          <div className={bubble(0).className} style={{ ...bubble(0).style, left: "1077px", top: "607px", zIndex: 15 }}>
+            <div className="bg-[#7B79FF] rounded-[25px] rounded-tr-none px-[20px] py-[15px]">
+              <p className="text-[#C6C5FF] text-[18px] font-medium leading-normal tracking-[-0.36px]">
+                <span className="font-bold text-white">설비는 무료</span>로 제공되나요?
+              </p>
             </div>
+          </div>
 
-            {/* 폰 – Figma 비율(40.7%) 유지하도록 xl에서 650px */}
-            <div className="relative mx-auto w-full max-w-[320px] md:max-w-[400px] lg:max-w-[520px] xl:max-w-[650px] z-10">
-              <div ref={phoneRef} className="relative">
-                {/* 폰 프레임 */}
-                <Image
-                  src="/images/faq/faq-phone-frame.png"
-                  alt=""
-                  width={1562}
-                  height={3116}
-                  className="w-full h-auto relative z-10 pointer-events-none select-none"
-                  priority
-                />
-
-                {/* 채팅 버블 */}
-                {CHAT_ITEMS.map((item, i) => {
-                  const isVisible = i < visibleCount;
-
-                  if (item.type === "question") {
-                    return (
-                      <div
-                        key={i}
-                        className={`absolute z-20 transition-all duration-500 ease-out ${
-                          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[10px]"
-                        }`}
-                        style={{ top: `${item.topPct}%`, right: "6.4%" }}
-                      >
-                        <div className="bg-[#7B79FF] rounded-[10px] rounded-tr-none md:rounded-[14px] md:rounded-tr-none lg:rounded-[18px] lg:rounded-tr-none xl:rounded-[22px] xl:rounded-tr-none px-[6px] py-[4px] md:px-[9px] md:py-[6px] lg:px-[12px] lg:py-[8px] xl:px-[16px] xl:py-[12px]">
-                          <p className="text-[#C6C5FF] text-[7px] md:text-[9px] lg:text-[11px] xl:text-[15px] font-medium leading-[1.2] tracking-[-0.02em] whitespace-pre-line">
-                            {item.text}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  }
-
-                  return (
-                    <div
-                      key={i}
-                      className={`absolute z-20 transition-all duration-500 ease-out ${
-                        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[10px]"
-                      }`}
-                      style={{ top: `${item.topPct}%`, left: "6.4%" }}
-                    >
-                      <div className="flex items-start gap-[2px] md:gap-[3px] lg:gap-[4px] xl:gap-[8px]">
-                        {item.hasLogo ? (
-                          <Image
-                            src="/images/faq/faq-answer-logo.png"
-                            alt=""
-                            width={42}
-                            height={42}
-                            className="w-[12px] h-[12px] md:w-[16px] md:h-[16px] lg:w-[22px] lg:h-[22px] xl:w-[34px] xl:h-[34px] rounded-full flex-shrink-0"
-                          />
-                        ) : (
-                          <div className="w-[12px] md:w-[16px] lg:w-[22px] xl:w-[34px] flex-shrink-0" />
-                        )}
-                        <div
-                          className={`bg-white text-[#424242] px-[5px] py-[4px] md:px-[8px] md:py-[6px] lg:px-[11px] lg:py-[8px] xl:px-[16px] xl:py-[14px] max-w-[75%] ${
-                            item.continued
-                              ? "rounded-[10px] md:rounded-[14px] lg:rounded-[18px] xl:rounded-[22px]"
-                              : "rounded-[10px] rounded-tl-none md:rounded-[14px] md:rounded-tl-none lg:rounded-[18px] lg:rounded-tl-none xl:rounded-[22px] xl:rounded-tl-none"
-                          }`}
-                        >
-                          <p className="text-[7px] md:text-[9px] lg:text-[11px] xl:text-[15px] font-medium leading-[1.4] tracking-[-0.02em] whitespace-pre-line">
-                            {item.text}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-
-                {/* CTA – 폰 우측 하단 */}
-                <div className="absolute z-20 bottom-[3%] -right-[6px] md:-right-[12px] lg:-right-[16px] xl:-right-[24px]">
-                  <button className="bg-[#151515] text-white border border-white rounded-full px-[10px] py-[6px] md:px-[16px] md:py-[9px] lg:px-[22px] lg:py-[12px] xl:px-[30px] xl:py-[18px] text-[8px] md:text-[11px] lg:text-[14px] xl:text-[17px] font-bold tracking-[-0.02em] hover:bg-[#333] transition-colors whitespace-nowrap">
-                    지금 문의하기
-                  </button>
-                </div>
-              </div>
+          {/* Q2: 주문한 간식은 한꺼번에 배송되나요? – left 1012, top 823 */}
+          <div className={bubble(2).className} style={{ ...bubble(2).style, left: "1012px", top: "823px", zIndex: 15 }}>
+            <div className="bg-[#7B79FF] rounded-[25px] rounded-tr-none px-[20px] py-[15px]">
+              <p className="text-[#C6C5FF] text-[18px] font-medium leading-normal tracking-[-0.36px]">
+                주문한 간식은 <span className="font-bold text-white">한꺼번에 배송</span>되나요?
+              </p>
             </div>
+          </div>
+
+          {/* Q3: 먹지 않은 간식이나... – left 889, top 1039 */}
+          <div className={bubble(4).className} style={{ ...bubble(4).style, left: "889px", top: "1039px", zIndex: 15 }}>
+            <div className="bg-[#7B79FF] rounded-[25px] rounded-tr-none px-[20px] py-[15px]">
+              <p className="text-[#C6C5FF] text-[18px] font-medium leading-normal tracking-[-0.36px]">
+                먹지 않은 간식이나 간식이 <span className="font-bold text-white">마음에 들지 않으면</span> 어쩌죠?
+              </p>
+            </div>
+          </div>
+
+          {/* Q4: 피드백 전달은... – left 1057, top 1355 */}
+          <div className={bubble(7).className} style={{ ...bubble(7).style, left: "1057px", top: "1355px", zIndex: 15 }}>
+            <div className="bg-[#7B79FF] rounded-[25px] rounded-tr-none px-[20px] py-[15px]">
+              <p className="text-[#C6C5FF] text-[18px] font-medium leading-normal tracking-[-0.36px]">
+                <span className="font-bold text-white">피드백 전달</span>은 어떻게 하나요?
+              </p>
+            </div>
+          </div>
+
+          {/* Q5: 결제는... – left 1107, top 1546 */}
+          <div className={bubble(9).className} style={{ ...bubble(9).style, left: "1107px", top: "1546px", zIndex: 15 }}>
+            <div className="bg-[#7B79FF] rounded-[25px] rounded-tr-none px-[20px] py-[15px]">
+              <p className="text-[#C6C5FF] text-[18px] font-medium leading-normal tracking-[-0.36px]">
+                <span className="font-bold text-white">결제</span>는 어떻게 하나요?
+              </p>
+            </div>
+          </div>
+
+          {/* ═══════ 답변 버블 (흰색) ═══════ */}
+
+          {/* A1 – left 677, top 678 */}
+          <div className={bubble(1).className} style={{ ...bubble(1).style, left: "677px", top: "678px", zIndex: 15 }}>
+            <div className="bg-white rounded-[25px] rounded-tl-none p-[20px]">
+              <p className="text-[#424242] text-[18px] font-medium leading-[1.4] tracking-[-0.36px] whitespace-nowrap">
+                편리하고 깨끗한 간식 공간을 가질 수 있도록<br />
+                스낵왕에서는 컨설팅 후 딱 맞는<br />
+                다양한 설비를 무료로 임대해드립니다.
+              </p>
+            </div>
+          </div>
+
+          {/* A2 – left 677, top 894 */}
+          <div className={bubble(3).className} style={{ ...bubble(3).style, left: "677px", top: "894px", zIndex: 15 }}>
+            <div className="bg-white rounded-[25px] rounded-tl-none p-[20px]">
+              <p className="text-[#424242] text-[18px] font-medium leading-[1.4] tracking-[-0.36px] whitespace-nowrap">
+                첫 주문 시 스낵왕 자체 데이터를 통해 큐레이션 되며,<br />
+                지속적으로 스낵왕 매니저가 선호, 비선호 간식을 모니터링하여<br />
+                고객 피드백 반영과 함께 매달 다양한 큐레이션이 제공됩니다.
+              </p>
+            </div>
+          </div>
+
+          {/* A3 – left 677, top 1110 */}
+          <div className={bubble(5).className} style={{ ...bubble(5).style, left: "677px", top: "1110px", zIndex: 15 }}>
+            <div className="bg-white rounded-[25px] rounded-tl-none p-[20px]">
+              <p className="text-[#424242] text-[18px] font-medium leading-[1.4] tracking-[-0.36px] whitespace-nowrap">
+                스낵왕 방문 관리 서비스를 이용 시<br />
+                비선호 간식은 선호 간식으로 대체 되거나<br />
+                교환 · 환불을 해드립니다.
+              </p>
+            </div>
+          </div>
+
+          {/* A4 (continued, 모든 모서리 둥글게) – left 677, top 1235 */}
+          <div className={bubble(6).className} style={{ ...bubble(6).style, left: "677px", top: "1235px", zIndex: 15 }}>
+            <div className="bg-white rounded-[25px] p-[20px]">
+              <p className="text-[#424242] text-[18px] font-medium leading-[1.4] tracking-[-0.36px] whitespace-nowrap">
+                또한 교환 · 환불은 스낵왕에서는 무료로<br />
+                진행됩니다.
+              </p>
+            </div>
+          </div>
+
+          {/* A5 – left 677, top 1426 */}
+          <div className={bubble(8).className} style={{ ...bubble(8).style, left: "677px", top: "1426px", zIndex: 15 }}>
+            <div className="bg-white rounded-[25px] rounded-tl-none p-[20px]">
+              <p className="text-[#424242] text-[18px] font-medium leading-[1.4] tracking-[-0.36px] whitespace-nowrap">
+                전용 피드백 페이지를 공유해드리며 1:1 전담 매니저를 통해<br />
+                24시간 지속적으로 피드백 전달이 가능합니다.
+              </p>
+            </div>
+          </div>
+
+          {/* A6 – left 677, top 1617 */}
+          <div className={bubble(10).className} style={{ ...bubble(10).style, left: "677px", top: "1617px", zIndex: 15 }}>
+            <div className="bg-white rounded-[25px] rounded-tl-none p-[20px]">
+              <p className="text-[#424242] text-[18px] font-medium leading-[1.4] tracking-[-0.36px] whitespace-nowrap">
+                <span className="font-extrabold">방문 관리 서비스 :</span> 해당하는 월에 제공되는 간식을 월말에 계산<br />
+                <span className="font-extrabold">정기 구독 서비스 :</span> 상담 후 구독 개월 수에 맞게 결제,<br />
+                원하는 날짜에 배송 및 중도 취소가 가능합니다.
+              </p>
+            </div>
+          </div>
+
+          {/* ═══════ CTA 버튼 ═══════ */}
+          {/* Figma: left 1137, top 1833, h 70 */}
+          <div className="absolute" style={{ left: "1137px", top: "1833px", zIndex: 15 }}>
+            <button
+              className="bg-[#151515] text-white border border-white font-bold hover:bg-[#333] transition-colors"
+              style={{
+                height: "70px",
+                paddingLeft: "34px",
+                paddingRight: "34px",
+                fontSize: "18px",
+                letterSpacing: "-0.36px",
+                borderRadius: "100px",
+                lineHeight: "20px",
+              }}
+            >
+              지금 문의하기
+            </button>
           </div>
         </div>
-      </div>
+      </div>{/* 스케일 래퍼 닫기 */}
     </section>
   );
 }
