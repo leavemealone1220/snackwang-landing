@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden text-white">
+    <section className="relative isolate overflow-hidden text-white min-h-[600px] md:min-h-[1080px]">
       {/* 배경(이미지 자리) + 딤 오버레이 */}
       <div className="absolute inset-0 -z-10">
         <Image
@@ -15,42 +15,37 @@ export function Hero() {
         <div className="absolute inset-0 bg-black/65" />
       </div>
 
-      <div className="mx-auto w-full max-w-[1920px] px-4 md:px-[60px]">
+      <div className="mx-auto flex min-h-[inherit] w-full max-w-[1920px] flex-col px-4 md:px-[60px]">
         {/* 상단 헤더 (반응형: container + flex) */}
-        <header className="flex items-center gap-4 py-6 md:gap-8">
-          <Image
-            src="/images/hero/logo.svg"
-            alt="snackwang"
-            width={180}
-            height={35}
-            priority
-            className="h-[28px] w-auto md:h-[35px]"
-          />
+        <header className="flex items-center justify-between py-6">
+          {/* 좌측: 로고 + 네비게이션 (Figma: gap 30px) */}
+          <div className="flex items-center gap-[30px]">
+            <Image
+              src="/images/hero/logo.svg"
+              alt="snackwang"
+              width={180}
+              height={35}
+              priority
+              className="h-[28px] w-auto md:h-[35px]"
+            />
 
-          <nav className="hidden items-center rounded-full bg-black/85 px-10 py-4 text-[16px] font-medium leading-[18px] tracking-[-0.32px] text-[#f8f8f9] md:ml-10 md:flex lg:ml-16">
-            <a className="px-3 py-1" href="#intro">
-              서비스 소개
-            </a>
-            <a className="px-3 py-1" href="#faq">
-              F&amp;Q
-            </a>
-            <a className="px-3 py-1" href="#contact">
-              문의하기
-            </a>
-          </nav>
+            <nav className="hidden items-center gap-[40px] rounded-full bg-[#1d1d1d] px-[40px] h-[56px] text-[16px] font-medium leading-[18px] tracking-[-0.32px] text-[#f8f8f9] md:flex">
+              <a href="#intro">서비스 소개</a>
+              <a href="#faq">F&amp;Q</a>
+              <a href="#contact">문의하기</a>
+            </nav>
+          </div>
 
-          <div className="ml-auto flex items-center gap-2 md:gap-3">
-            {/* 서비스 소개서 받기 (데스크톱에서만 노출) */}
+          {/* 우측: 버튼 그룹 (Figma: gap 30px) */}
+          <div className="flex items-center gap-[30px]">
             <a
-              className="hidden items-center justify-center rounded-full bg-white/90 px-5 py-3 text-sm font-bold text-blue shadow-sm transition hover:bg-white md:inline-flex md:h-[56px] md:px-[24px] md:py-[18px] md:text-[16px] md:leading-[16px] md:tracking-[-0.32px]"
+              className="hidden items-center justify-center rounded-full bg-[#f8f8f9] text-[#02acea] font-bold transition hover:bg-white md:inline-flex h-[56px] px-[28px] py-[20px] text-[16px] leading-[16px] tracking-[-0.32px]"
               href="#brochure"
             >
               서비스 소개서 받기
             </a>
-
-            {/* 기업 간식 관리 (주요 CTA) */}
             <a
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-blue px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:brightness-110 md:h-[56px] md:px-[28px] md:py-[20px] md:text-[16px] md:leading-[16px] md:tracking-[-0.32px]"
+              className="inline-flex items-center justify-center gap-[6px] rounded-full bg-[#02acea] text-[#f8f8f9] font-bold transition hover:brightness-110 h-[56px] px-[28px] py-[20px] text-[16px] leading-[16px] tracking-[-0.32px]"
               href="#b2b"
             >
               <Image
@@ -66,7 +61,7 @@ export function Hero() {
         </header>
 
         {/* 히어로 본문 (반응형) */}
-        <div className="flex min-h-[560px] flex-col items-center justify-center pb-20 pt-10 text-center md:min-h-[720px] md:pb-28">
+        <div className="flex flex-1 flex-col items-center justify-center pb-20 pt-10 text-center md:pb-28">
           <h1 className="font-display text-[40px] leading-[1.15] tracking-[-0.02em] sm:text-[52px] md:text-[72px] md:leading-[1.1] lg:text-[80px]">
             <span className="inline-flex flex-wrap items-center justify-center gap-3">
               출근

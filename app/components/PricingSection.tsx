@@ -35,13 +35,13 @@ const PLANS = [
 
 export function PricingSection() {
   return (
-    <section className="bg-[#1d1d1d] pb-[10rem] pt-[5rem] text-white md:pb-[12rem] md:pt-[6rem] rounded-t-[48px] md:rounded-t-[60px]">
+    <section className="bg-[#1d1d1d] pb-[300px] pt-[5rem] text-white md:pb-[300px] md:pt-[6rem] rounded-t-[48px] md:rounded-t-[60px]">
       <div className="mx-auto w-full max-w-[1920px] px-4 md:px-0">
         <div className="flex flex-col items-center gap-8 md:gap-10">
           {/* 상단 타이틀 */}
           <div className="text-center">
             <p className="text-sm font-medium text-accent-blue md:text-base">
-              요금제
+              요금소개
             </p>
             <h2 className="mt-2 text-[22px] font-medium tracking-[-0.02em] text-white md:text-[28px]">
               우리 팀에 딱 맞게,{" "}

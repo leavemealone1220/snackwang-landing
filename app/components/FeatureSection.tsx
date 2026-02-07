@@ -55,7 +55,7 @@ export function FeatureSection() {
   );
 
   return (
-    <section className="bg-[#f6f5ee] py-section">
+    <section className="bg-[#f6f5ee] pt-[150px] pb-[200px]">
       {/* 1920px Figma 캔버스를 기준으로 좌우 여백/위치를 맞추기 위한 래퍼 */}
       <div className="mx-auto w-full max-w-[1920px] px-4 md:px-0">
         <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-0">
@@ -69,11 +69,6 @@ export function FeatureSection() {
               <br />
               한 입 드릴게요!
             </h2>
-            <p className="mt-4 max-w-md text-sm text-black/70 md:text-base">
-              버튼을 눌러 다양한 스낵왕 혜택 카드를 살펴보세요. 맨 앞 카드가
-              현재 적용 중인 대표 혜택입니다.
-            </p>
-
             <div className="mt-6 flex items-center gap-3">
               <button
                 type="button"
@@ -94,40 +89,28 @@ export function FeatureSection() {
             </div>
           </div>
 
-          {/* 오른쪽 카드 슬라이더 - Figma 기준 카드 시작이 약 724px 이라, 텍스트에서 ~110px 정도 떨어지게 마진 */}
-          <div className="mt-8 flex flex-[1.9] items-stretch md:mt-0 md:pl-[110px]">
-            <div className="flex w-full overflow-hidden">
+          {/* 오른쪽 카드 슬라이더 (Figma: 활성 360px, 비활성 276px, gap 30px) */}
+          <div className="mt-8 flex flex-1 items-start md:mt-0 md:pl-[110px]">
+            <div className="flex w-full items-start gap-[15px] overflow-hidden md:gap-[30px]">
               {ordered.map((feature, idx) => {
                 const isActive = idx === 0;
-                const scale = isActive
-                    ? "md:scale-100 scale-100"
-                    : "md:scale-90 scale-90";
-                const opacity = isActive ? "opacity-100" : "opacity-40";
-                const translateY = isActive
-                  ? "md:translate-y-0"
-                  : "md:translate-y-4";
 
                 return (
                   <article
                     key={feature.id}
-                    className={`mx-1 md:mx-2 flex transform flex-col items-center transition-all duration-500
-                    w-[180px] flex-shrink-0 sm:w-[220px] md:w-[260px] lg:w-[300px]
-                    ${scale}`}
+                    className={`flex-shrink-0 overflow-hidden rounded-[20px] md:rounded-[40px] transition-all duration-500 ${
+                      isActive
+                        ? "w-[200px] sm:w-[260px] md:w-[320px] lg:w-[360px] opacity-100"
+                        : "w-[150px] sm:w-[190px] md:w-[240px] lg:w-[276px] opacity-40"
+                    }`}
                   >
-                    {/* Figma 카드 이미지를 전체가 보이도록 그대로 출력 */}
-                    <div
-                      className={`w-full transform transition-all duration-500 ${opacity} ${translateY}`}
-                    >
-                      <Image
-                        src={feature.imageSrc}
-                        alt={feature.alt}
-                        width={360}
-                        height={480}
-                        className="h-auto w-full"
-                      />
-                    </div>
-
-                    {/* 화면에는 안 보이지만, 스크린리더용 텍스트 */}
+                    <Image
+                      src={feature.imageSrc}
+                      alt={feature.alt}
+                      width={360}
+                      height={550}
+                      className="h-auto w-full"
+                    />
                     <p className="sr-only">{feature.alt}</p>
                   </article>
                 );

@@ -2,16 +2,16 @@ import Image from "next/image";
 
 export function CustomizationSection() {
   return (
-    <section className="relative -mt-[6rem] bg-[#7b79ff] py-section text-white rounded-t-[48px] md:-mt-[8rem] md:rounded-t-[60px]">
+    <section className="relative -mt-[6rem] bg-[#7b79ff] pt-[150px] pb-[200px] text-white rounded-t-[48px] md:-mt-[8rem] md:rounded-t-[60px]">
       <div className="mx-auto w-full max-w-[1920px] px-4 md:px-[60px]">
         <div className="flex flex-col items-center gap-8 md:gap-10">
           {/* 상단 타이틀 */}
           <div className="text-center">
-            <p className="text-sm font-medium text-accent-yellow md:text-base">
-              🤩 이제 맞는 상자 커스터마이징
+            <p className="text-sm font-medium text-[#02acea] md:text-base">
+              설비 커스터마이징
             </p>
             <h2 className="mt-2 text-[28px] font-extrabold leading-snug tracking-[-0.02em] text-white md:text-[40px]">
-              땅! 맞는 설비 커스터마이징
+              딱! 맞는 설비 커스터마이징
             </h2>
             <p className="mt-3 text-sm text-white/85 md:text-base">
               오늘도 수백 개 사무실에, 스낵왕이 한 입의 힘을 전하고 있습니다.
@@ -55,9 +55,15 @@ export function CustomizationSection() {
           {/* 하단 CTA */}
           <a
             href="#customize"
-            className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-black px-8 py-4 text-sm font-bold text-white shadow-lg transition hover:bg-black/80 md:mt-8 md:px-10 md:py-5 md:text-base"
+            className="inline-flex items-center justify-center gap-[10px] rounded-full bg-[#151515] px-[34px] py-[20px] text-[18px] font-bold leading-[20px] tracking-[-0.36px] text-white transition hover:bg-black/80"
           >
-            <span aria-hidden>👁</span>
+            <Image
+              src="/images/customization/cta-icon.png"
+              alt=""
+              width={28}
+              height={17}
+              className="h-[17px] w-[28px]"
+            />
             우리 사무실에 배치해보기
           </a>
         </div>

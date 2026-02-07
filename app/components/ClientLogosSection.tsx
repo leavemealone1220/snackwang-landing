@@ -14,7 +14,7 @@ export function ClientLogosSection() {
             그 한 입을 먼저{" "}
             <span className="font-extrabold">선택한 기업들입니다.</span>
           </h2>
-          <p className="mt-3 text-sm text-black/70 md:text-base">
+          <p className="mt-3 text-sm font-bold text-black/70 md:text-base">
             오늘도 수백 개 사무실에, 스낵왕이 한 입의 힘을 전하고 있습니다.
           </p>
         </div>
