@@ -24,7 +24,7 @@ export function FinalCTASection() {
               </span>
             </div>
 
-            {/* 2행: 결국 [토스트][붕어빵] 한 입 이었다. */}
+            {/* 2행: 결국 [토스트][수박][붕어빵] 한 입 이었다. */}
             <div className="flex items-center justify-center flex-wrap gap-x-1">
               <span className="font-display text-[36px] md:text-[56px] lg:text-[80px] text-[#151515] leading-[1.4] tracking-[-0.017em]">
                 결국
@@ -35,6 +35,13 @@ export function FinalCTASection() {
                 width={94}
                 height={64}
                 className="inline-block w-[44px] md:w-[66px] lg:w-[94px] h-auto mx-1"
+              />
+              <Image
+                src="/images/cta/cta-watermelon.png"
+                alt=""
+                width={378}
+                height={387}
+                className="inline-block w-[30px] md:w-[44px] lg:w-[62px] h-auto mx-1"
               />
               <Image
                 src="/images/cta/cta-fishbread.png"
@@ -63,8 +70,8 @@ export function FinalCTASection() {
               <Image
                 src="/images/cta/cta-watermelon.png"
                 alt=""
-                width={24}
-                height={24}
+                width={378}
+                height={387}
                 className="w-[16px] md:w-[20px] lg:w-[23px] h-auto"
               />
               지금 신청하기
