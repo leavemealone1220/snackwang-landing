@@ -71,9 +71,9 @@ export function FeatureSection() {
   };
 
   return (
-    <section className="bg-[#f6f5ee] pt-[150px] pb-[200px]">
+    <section className="bg-[#f6f5ee] pt-[40px] pb-[40px] md:pt-[150px] md:pb-[200px]">
       <div className="mx-auto w-full max-w-[1920px] px-4 md:px-0">
-        <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-0">
+        <div className="flex flex-col gap-5 md:flex-row md:items-center md:gap-0">
           {/* 왼쪽 텍스트 & 버튼 */}
           <div className="flex flex-[0_0_auto] flex-col justify-center md:pl-[260px] md:pr-0 md:max-w-[520px]">
             <p className="text-sm font-medium text-blue md:text-base">
