@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 
 type ProcessStep = {
   id: string;
@@ -17,47 +17,42 @@ const PROCESS_STEPS: ProcessStep[] = [
 
 export function ProcessSection() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [dragStartX, setDragStartX] = useState<number | null>(null);
   const [dragDeltaX, setDragDeltaX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const dragStartX = useRef(0);
+  const dragging = useRef(false);
 
-  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    setDragStartX(event.clientX);
+  const handlePointerDown = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    dragging.current = true;
+    dragStartX.current = event.clientX;
     setIsDragging(true);
-  };
+    (event.target as HTMLElement).setPointerCapture?.(event.pointerId);
+  }, []);
 
-  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDragging || dragStartX === null) return;
-    event.preventDefault();
-    const delta = event.clientX - dragStartX;
+  const handlePointerMove = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragging.current) return;
+    const delta = event.clientX - dragStartX.current;
     setDragDeltaX(delta);
-  };
+  }, []);
 
-  const handlePointerUp = () => {
-    if (!isDragging || dragStartX === null) {
-      setIsDragging(false);
-      setDragDeltaX(0);
-      return;
-    }
+  const handlePointerUp = useCallback(() => {
+    if (!dragging.current) return;
+    dragging.current = false;
 
     const threshold = 40;
     if (dragDeltaX <= -threshold) {
-      // 왼쪽으로 드래그: 다음 카드로, 마지막이면 첫 번째로 루프
       setActiveIndex((prev) =>
         prev < PROCESS_STEPS.length - 1 ? prev + 1 : 0
       );
     } else if (dragDeltaX >= threshold) {
-      // 오른쪽으로 드래그: 이전 카드로, 첫 번째면 마지막으로 루프
       setActiveIndex((prev) =>
         prev > 0 ? prev - 1 : PROCESS_STEPS.length - 1
       );
     }
 
     setIsDragging(false);
-    setDragStartX(null);
     setDragDeltaX(0);
-  };
+  }, [dragDeltaX]);
 
   return (
     <section className="bg-[#f6f5ee] pt-[80px] pb-[80px] md:pt-[120px] md:pb-[120px] lg:pt-[150px] lg:pb-[150px]">
@@ -104,7 +99,7 @@ export function ProcessSection() {
         <div className="mx-auto mt-0 h-[1px] max-w-[600px] bg-black/10" />
 
         {/* 카드 슬라이더 */}
-        <div className="relative mx-auto mt-6 max-w-[1400px] overflow-visible md:mt-10">
+        <div className="relative mx-auto mt-6 max-w-[1400px] overflow-hidden lg:overflow-visible md:mt-10">
           <div
             className={`flex select-none items-center justify-center ${
               isDragging ? "cursor-grabbing" : "cursor-grab"
@@ -138,7 +133,7 @@ export function ProcessSection() {
             {/* 현재 카드 (가운데, 크게) */}
             <div
               className={`relative z-10 w-full max-w-[560px] flex-shrink-0 md:max-w-[680px] lg:max-w-[560px] ${
-                !isDragging ? "transition-transform duration-300 ease-out" : ""
+                !isDragging ? "transition-transform duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]" : ""
               }`}
               style={{
                 transform: `translateX(${dragDeltaX}px)`,

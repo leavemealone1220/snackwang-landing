@@ -1,7 +1,7 @@
 'use client';
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 type FeatureSlide = {
   id: string;
@@ -60,6 +60,23 @@ export function FeatureSection() {
     setActiveIndex((prev) => (prev === 0 ? total - 1 : prev - 1));
   };
 
+  // 드래그/스와이프
+  const dragStartX = useRef(0);
+  const isDragging = useRef(false);
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    isDragging.current = true;
+    dragStartX.current = e.clientX;
+  };
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    const delta = e.clientX - dragStartX.current;
+    if (delta < -40) handleNext();
+    else if (delta > 40) handlePrev();
+  };
+
   // 각 카드의 x 위치 계산 (activeIndex 기준 상대 위치)
   const getCardX = (idx: number) => {
     const relPos = ((idx - activeIndex) % total + total) % total;
@@ -106,7 +123,13 @@ export function FeatureSection() {
 
           {/* 오른쪽 카드 슬라이더 */}
           <div className="mt-8 flex-1 overflow-hidden md:mt-0 md:pl-[110px]">
-            <div className="relative" style={{ height: sizes.height }}>
+            <div
+              className="relative touch-pan-y"
+              style={{ height: sizes.height }}
+              onPointerDown={handlePointerDown}
+              onPointerUp={handlePointerUp}
+              onPointerLeave={(e) => { if (isDragging.current) handlePointerUp(e); }}
+            >
               {FEATURE_SLIDES.map((feature, idx) => {
                 const relPos = ((idx - activeIndex) % total + total) % total;
                 const isActive = relPos === 0;
