@@ -145,15 +145,15 @@ export function FooterSection() {
               </p>
 
               {/* 이메일 입력 */}
-              <div className="mt-4 md:mt-5 flex gap-2">
+              <div className="mt-4 md:mt-5 flex items-center gap-2">
                 <input
                   type="email"
                   placeholder="Email"
-                  className="flex-1 bg-[#323232] text-[#F8F8F9] placeholder-[#4D4D4D] rounded-[12px] px-[12px] md:px-[15px] py-[14px] md:py-[17px] text-[16px] md:text-[24px] tracking-[-0.017em] outline-none focus:ring-1 focus:ring-[#FF6D39]"
+                  className="flex-1 min-w-0 bg-[#323232] text-[#F8F8F9] placeholder-[#4D4D4D] rounded-[12px] px-[12px] md:px-[15px] h-[44px] md:h-[60px] text-[14px] md:text-[24px] tracking-[-0.017em] outline-none focus:ring-1 focus:ring-[#FF6D39]"
                 />
                 <button
                   aria-label="보내기"
-                  className="w-[48px] md:w-[60px] h-[48px] md:h-[60px] bg-[#FF6D39] rounded-full flex items-center justify-center flex-shrink-0 hover:opacity-90 transition-opacity"
+                  className="w-[44px] md:w-[60px] h-[44px] md:h-[60px] bg-[#FF6D39] rounded-full flex items-center justify-center flex-shrink-0 hover:opacity-90 transition-opacity"
                 >
                   <svg width="16" height="30" viewBox="0 0 16 30" fill="none" className="w-[12px] md:w-[16px] h-auto">
                     <path d="M2 2L14 15L2 28" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
