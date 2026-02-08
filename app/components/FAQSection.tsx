@@ -5,8 +5,9 @@ import Image from "next/image";
 
 /**
  * FAQ Section
- * - Desktop (lg+): 1920px 고정 레이아웃 (Figma px 값 그대로)
- * - Mobile (~lg): 아코디언 형태 FAQ 리스트
+ * - Desktop (lg+): 1920px 고정 레이아웃 (Figma px 값 그대로) → hidden lg:block
+ * - Mobile (~lg): 아코디언 형태 FAQ 리스트 → lg:hidden
+ * 두 레이아웃을 별도 section으로 분리하여 SSR 레이아웃 깨짐 방지
  */
 
 const FAQ_DATA = [
@@ -35,20 +36,17 @@ const FAQ_DATA = [
 export function FAQSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [visibleCount, setVisibleCount] = useState(0);
-  const [scale, setScale] = useState(1);
-  const [isMobile, setIsMobile] = useState(false);
+  const [scale, setScale] = useState(0.75);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  /* 뷰포트 너비에 맞춰 스케일 + 모바일 감지 */
+  /* 뷰포트 너비에 맞춰 데스크톱 스케일 계산 */
   useEffect(() => {
-    const updateLayout = () => {
-      const w = window.innerWidth;
-      setScale(Math.min(0.75, (w - 120) / 1920));
-      setIsMobile(w < 1024);
+    const updateScale = () => {
+      setScale(Math.min(0.75, (window.innerWidth - 120) / 1920));
     };
-    updateLayout();
-    window.addEventListener("resize", updateLayout);
-    return () => window.removeEventListener("resize", updateLayout);
+    updateScale();
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
   }, []);
 
   /* 스크롤 기반 버블 애니메이션 (데스크톱용) */
@@ -83,20 +81,20 @@ export function FAQSection() {
   };
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative"
-      style={{
-        height: isMobile ? "auto" : `${2478 * scale}px`,
-        marginBottom: isMobile ? "-100px" : "-250px",
-        overflowX: "clip",
-        overflowY: "visible",
-      }}
-    >
+    <>
       {/* ══════════════════════════════════════════════════ */}
       {/* 데스크톱 레이아웃 (lg+): 기존 1920px 스케일 */}
       {/* ══════════════════════════════════════════════════ */}
-      <div className="hidden lg:block">
+      <section
+        ref={sectionRef}
+        className="relative hidden lg:block"
+        style={{
+          height: `${2478 * scale}px`,
+          marginBottom: "-250px",
+          overflowX: "clip",
+          overflowY: "visible",
+        }}
+      >
         {/* ── 전체 너비 파란 배경 ── */}
         <div
           className="absolute inset-0 bg-[#02ACEA]"
@@ -469,12 +467,15 @@ export function FAQSection() {
             </div>
           </div>
         </div>{/* 스케일 래퍼 닫기 */}
-      </div>{/* 데스크톱 래퍼 닫기 */}
+      </section>{/* 데스크톱 section 닫기 */}
 
       {/* ══════════════════════════════════════════════════ */}
       {/* 모바일 레이아웃 (~lg): 아코디언 FAQ */}
       {/* ══════════════════════════════════════════════════ */}
-      <div className="lg:hidden">
+      <section
+        className="relative lg:hidden"
+        style={{ marginBottom: "-100px" }}
+      >
         {/* 파란 상단 영역 + 타이틀 */}
         <div className="bg-[#02ACEA] rounded-t-[40px] px-5 pt-14 pb-6">
           <p className="text-center text-white/60 font-medium text-[14px] tracking-[-0.28px]">
@@ -551,7 +552,7 @@ export function FAQSection() {
             지금 문의하기
           </button>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
