@@ -474,7 +474,7 @@ export function FAQSection() {
       {/* ══════════════════════════════════════════════════ */}
       <section
         className="relative lg:hidden bg-[#02ACEA] rounded-t-[40px]"
-        style={{ marginBottom: "-100px" }}
+        style={{ marginBottom: "-50px" }}
       >
         {/* 타이틀 (section 자체가 파란 배경) */}
         <div className="px-5 pt-14 pb-6">
@@ -543,7 +543,7 @@ export function FAQSection() {
 
         {/* 노란 하단 영역 + CTA (곡선 뒤로 파란색이 보임) */}
         <div
-          className="bg-[#FFC845] px-5 pt-10 pb-14 text-center"
+          className="bg-[#FFC845] px-5 pt-10 pb-24 text-center"
           style={{ borderRadius: "50% 50% 0 0 / 40px 40px 0 0" }}
         >
           <button
