@@ -36,7 +36,7 @@ export function CustomizationSection() {
   const currentTier = PLAN_TIERS.find((t) => t.id === activeTier) || PLAN_TIERS[0];
 
   return (
-    <section className="relative -mt-[6rem] bg-[#7b79ff] pt-[150px] pb-[200px] text-white rounded-t-[48px] md:-mt-[8rem] md:rounded-t-[60px]">
+    <section className="relative -mt-[6rem] bg-[#7b79ff] pt-[60px] pb-[60px] md:pt-[150px] md:pb-[200px] text-white rounded-t-[48px] md:-mt-[8rem] md:rounded-t-[60px]">
       <div className="mx-auto w-full max-w-[1920px] px-4 md:px-[60px]">
         <div className="flex flex-col items-center gap-8 md:gap-10">
           {/* 상단 타이틀 */}
@@ -53,7 +53,7 @@ export function CustomizationSection() {
           </div>
 
           {/* 가격대별 선택 버튼 */}
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="grid grid-cols-2 gap-2 md:flex md:items-center md:justify-center md:gap-3">
             {PLAN_TIERS.map((tier) => {
               const isActive = activeTier === tier.id;
               return (

@@ -94,8 +94,8 @@ export function ThemeSectionV2() {
             </span>
           </div>
           <p className="mt-[12px] md:mt-[20px] text-[#1d1d1d] font-medium leading-[1.4] tracking-[-0.48px] text-[16px] md:text-[20px] lg:text-[24px]">
-            매달 바뀌는 테마, 매번 달라지는 간식 1:1 전담 매니저가 만들어
-            드립니다!
+            매달 바뀌는 테마, 매번 달라지는 간식<br />
+            1:1 전담 매니저가 만들어 드립니다!
           </p>
         </div>
 
@@ -165,35 +165,35 @@ export function ThemeSectionV2() {
                         <h3 className="text-[#1d1d1d] font-bold leading-[1.4] tracking-[-0.48px] text-[22px] md:text-[28px] lg:text-[32px]">
                           {card.title}
                         </h3>
-                        <div className="mt-[10px] md:mt-[16px] flex flex-wrap gap-[8px] md:gap-[12px]">
+                        <div className="mt-[6px] md:mt-[16px] flex flex-nowrap items-center gap-[6px] md:flex-wrap md:gap-[12px]">
                           {card.tags.map((tag, j) => (
                             <span
                               key={j}
-                              className="bg-[#f2f2f2] text-[rgba(29,29,29,0.6)] font-medium text-[13px] md:text-[16px] leading-[1.4] tracking-[-0.32px] px-[8px] md:px-[10px] py-[3px] rounded-[7px]"
+                              className="bg-[#f2f2f2] text-[rgba(29,29,29,0.6)] font-medium text-[11px] md:text-[16px] leading-[1.4] tracking-[-0.32px] px-[6px] md:px-[10px] py-[2px] md:py-[3px] rounded-[7px] whitespace-nowrap"
                             >
                               {tag}
                             </span>
                           ))}
                         </div>
                       </div>
-                      {/* 이미지 - 모바일에서 숨김 */}
-                      <div className="hidden md:block flex-shrink-0 ml-[20px] relative">
+                      {/* 이미지 */}
+                      <div className="flex-shrink-0 -translate-x-[15px] md:translate-x-0 md:ml-[20px] relative">
                         {i === 0 && (
-                          <div className="relative w-[200px] h-[144px]">
+                          <div className="relative w-[100px] h-[80px] md:w-[200px] md:h-[144px]">
                             <Image
                               src="/images/theme-v2/slider-01-fishbread.png"
                               alt=""
                               width={60}
                               height={46}
-                              className="absolute left-0 bottom-[10px] w-[60px] h-auto"
+                              className="absolute left-0 bottom-[4px] w-[32px] md:w-[60px] h-auto"
                             />
-                            <div className="absolute right-0 top-0 w-[144px] h-[144px] rounded-full bg-[#02ACEA] flex items-center justify-center overflow-hidden">
+                            <div className="absolute right-0 top-0 w-[75px] h-[75px] md:w-[144px] md:h-[144px] rounded-full bg-[#02ACEA] flex items-center justify-center overflow-hidden">
                               <Image
                                 src="/images/theme-v2/slider-01-fishbread-big.png"
                                 alt=""
                                 width={100}
                                 height={100}
-                                className="w-[100px] h-auto"
+                                className="w-[52px] md:w-[100px] h-auto"
                               />
                             </div>
                           </div>
@@ -204,8 +204,7 @@ export function ThemeSectionV2() {
                             alt=""
                             width={86}
                             height={113}
-                            className="h-auto"
-                            style={{ width: "86px" }}
+                            className="h-auto w-[56px] md:w-[86px]"
                           />
                         )}
                         {i === 2 && (
@@ -215,15 +214,14 @@ export function ThemeSectionV2() {
                               alt=""
                               width={111}
                               height={140}
-                              className="h-auto"
-                              style={{ width: "111px" }}
+                              className="h-auto w-[70px] md:w-[111px]"
                             />
                             <Image
                               src="/images/theme-v2/slider-03-bubble.png"
                               alt=""
                               width={58}
                               height={60}
-                              className="absolute -right-[40px] top-[10px] w-[58px] h-auto"
+                              className="absolute -right-[20px] top-[5px] w-[30px] md:w-[58px] md:-right-[40px] md:top-[10px] h-auto"
                             />
                           </div>
                         )}
