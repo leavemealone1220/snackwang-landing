@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://snackwang.com/sitemap.xml",
+    sitemap: "https://snackwang-landing.vercel.app/sitemap.xml",
   };
 }
