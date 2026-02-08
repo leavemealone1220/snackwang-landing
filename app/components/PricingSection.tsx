@@ -35,9 +35,9 @@ const PLANS = [
 
 export function PricingSection() {
   return (
-    <section className="bg-[#1d1d1d] pb-[300px] pt-[5rem] text-white md:pb-[300px] md:pt-[6rem] rounded-t-[48px] md:rounded-t-[60px]">
+    <section className="bg-[#1d1d1d] pb-[180px] pt-[4rem] text-white sm:pb-[220px] md:pb-[300px] md:pt-[6rem] rounded-t-[48px] md:rounded-t-[60px]">
       <div className="mx-auto w-full max-w-[1920px] px-4 md:px-0">
-        <div className="flex flex-col items-center gap-8 md:gap-10">
+        <div className="flex flex-col items-center gap-6 md:gap-10">
           {/* 상단 타이틀 */}
           <div className="text-center">
             <p className="text-sm font-medium text-accent-blue md:text-base">
@@ -50,11 +50,11 @@ export function PricingSection() {
           </div>
 
           {/* 요금제 카드 */}
-          <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row md:gap-6">
+          <div className="flex w-full flex-col items-center justify-center gap-3 sm:gap-4 md:flex-row md:gap-6">
             {PLANS.map((plan) => (
               <article
                 key={plan.id}
-                className="flex w-full max-w-xs flex-col items-center text-left md:max-w-[320px]"
+                className="flex w-full max-w-[280px] flex-col items-center text-left sm:max-w-[300px] md:max-w-[320px]"
               >
                 {/* Figma에서 추출한 카드 전체 이미지 그대로 사용 */}
                 <div className="w-full">

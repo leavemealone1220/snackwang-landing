@@ -37,7 +37,7 @@ export function Hero() {
           </div>
 
           {/* 우측: 버튼 그룹 (Figma: gap 30px) */}
-          <div className="flex items-center gap-[30px]">
+          <div className="flex items-center gap-[10px] md:gap-[30px]">
             <a
               className="hidden items-center justify-center rounded-full bg-[#f8f8f9] text-[#02acea] font-bold transition hover:bg-white md:inline-flex h-[56px] px-[28px] py-[20px] text-[16px] leading-[16px] tracking-[-0.32px]"
               href="#brochure"
@@ -45,7 +45,7 @@ export function Hero() {
               서비스 소개서 받기
             </a>
             <a
-              className="inline-flex items-center justify-center gap-[6px] rounded-full bg-[#02acea] text-[#f8f8f9] font-bold transition hover:brightness-110 h-[56px] px-[28px] py-[20px] text-[16px] leading-[16px] tracking-[-0.32px]"
+              className="inline-flex items-center justify-center gap-[4px] md:gap-[6px] rounded-full bg-[#02acea] text-[#f8f8f9] font-bold transition hover:brightness-110 h-[44px] px-[16px] py-[12px] text-[13px] leading-[16px] tracking-[-0.32px] md:h-[56px] md:px-[28px] md:py-[20px] md:text-[16px]"
               href="#b2b"
             >
               <Image
@@ -53,7 +53,7 @@ export function Hero() {
                 alt=""
                 width={25}
                 height={18}
-                className="h-[18px] w-auto"
+                className="h-[14px] w-auto md:h-[18px]"
               />
               기업 간식 관리
             </a>

@@ -21,7 +21,7 @@ export default function Home() {
       <CustomizationSection />
       <ThemeSectionV2 />
       <ProcessSection />
-      <div className="bg-[#f6f5ee] pt-[80px]">
+      <div className="bg-[#f6f5ee] pt-[40px] md:pt-[60px] lg:pt-[80px]">
         <FAQSection />
       </div>
       <StatsSection />

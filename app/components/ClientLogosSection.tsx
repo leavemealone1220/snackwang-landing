@@ -30,7 +30,7 @@ export function ClientLogosSection() {
                   alt="스낵왕 고객사 로고 스트립"
                   width={4021}
                   height={264}
-                  className="h-[156px] w-full md:h-[182px]"
+                  className="h-[100px] w-full sm:h-[130px] md:h-[182px]"
                 />
               </div>
             ))}
