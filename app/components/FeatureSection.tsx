@@ -1,18 +1,14 @@
 'use client';
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type FeatureSlide = {
   id: string;
-  /** Figma 카드 전체를 export 한 이미지 경로 */
   imageSrc: string;
-  /** 접근성용 텍스트 요약 */
   alt: string;
 };
 
-// Figma 카드 디자인을 그대로 이미지로 넣기 위한 슬라이드 정의
-// (이미지는 public/images/features/feature-0X.png 로 export 해 두면 됩니다)
 const FEATURE_SLIDES: FeatureSlide[] = [
   {
     id: "curation",
@@ -38,31 +34,50 @@ const FEATURE_SLIDES: FeatureSlide[] = [
 
 export function FeatureSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const total = FEATURE_SLIDES.length;
+
+  // 반응형 카드 크기
+  const [sizes, setSizes] = useState({ active: 360, inactive: 276, gap: 30, height: 550 });
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      if (w >= 1024) setSizes({ active: 360, inactive: 276, gap: 30, height: 550 });
+      else if (w >= 768) setSizes({ active: 320, inactive: 240, gap: 30, height: 490 });
+      else if (w >= 640) setSizes({ active: 260, inactive: 190, gap: 15, height: 400 });
+      else setSizes({ active: 200, inactive: 150, gap: 15, height: 310 });
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
 
   const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % FEATURE_SLIDES.length);
+    setActiveIndex((prev) => (prev + 1) % total);
   };
 
   const handlePrev = () => {
-    setActiveIndex((prev) =>
-      prev === 0 ? FEATURE_SLIDES.length - 1 : prev - 1
-    );
+    setActiveIndex((prev) => (prev === 0 ? total - 1 : prev - 1));
   };
 
-  // activeIndex 기준으로 정렬된 카드 순서
-  const ordered = FEATURE_SLIDES.map(
-    (_, i) => FEATURE_SLIDES[(activeIndex + i) % FEATURE_SLIDES.length]
-  );
+  // 각 카드의 x 위치 계산 (activeIndex 기준 상대 위치)
+  const getCardX = (idx: number) => {
+    const relPos = ((idx - activeIndex) % total + total) % total;
+    let x = 0;
+    for (let p = 0; p < relPos; p++) {
+      x += (p === 0 ? sizes.active : sizes.inactive) + sizes.gap;
+    }
+    return x;
+  };
 
   return (
     <section className="bg-[#f6f5ee] pt-[150px] pb-[200px]">
-      {/* 1920px Figma 캔버스를 기준으로 좌우 여백/위치를 맞추기 위한 래퍼 */}
       <div className="mx-auto w-full max-w-[1920px] px-4 md:px-0">
         <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-0">
-          {/* 왼쪽 텍스트 & 버튼 - Figma 기준 left 280px, width 377px 근사치 */}
+          {/* 왼쪽 텍스트 & 버튼 */}
           <div className="flex flex-[0_0_auto] flex-col justify-center md:pl-[260px] md:pr-0 md:max-w-[520px]">
             <p className="text-sm font-medium text-blue md:text-base">
-            체험해보세요!
+              체험해보세요!
             </p>
             <h2 className="mt-2 text-[28px] font-extrabold leading-snug tracking-[-0.02em] text-black md:text-[40px]">
               스낵왕이 알아서
@@ -89,20 +104,24 @@ export function FeatureSection() {
             </div>
           </div>
 
-          {/* 오른쪽 카드 슬라이더 (Figma: 활성 360px, 비활성 276px, gap 30px) */}
-          <div className="mt-8 flex flex-1 items-start md:mt-0 md:pl-[110px]">
-            <div className="flex w-full items-start gap-[15px] overflow-hidden md:gap-[30px]">
-              {ordered.map((feature, idx) => {
-                const isActive = idx === 0;
+          {/* 오른쪽 카드 슬라이더 */}
+          <div className="mt-8 flex-1 overflow-hidden md:mt-0 md:pl-[110px]">
+            <div className="relative" style={{ height: sizes.height }}>
+              {FEATURE_SLIDES.map((feature, idx) => {
+                const relPos = ((idx - activeIndex) % total + total) % total;
+                const isActive = relPos === 0;
+                const x = getCardX(idx);
 
                 return (
                   <article
                     key={feature.id}
-                    className={`flex-shrink-0 overflow-hidden rounded-[20px] md:rounded-[40px] transition-all duration-500 ${
-                      isActive
-                        ? "w-[200px] sm:w-[260px] md:w-[320px] lg:w-[360px] opacity-100"
-                        : "w-[150px] sm:w-[190px] md:w-[240px] lg:w-[276px] opacity-40"
-                    }`}
+                    className="absolute top-0 left-0 overflow-hidden rounded-[20px] md:rounded-[40px]"
+                    style={{
+                      transform: `translateX(${x}px)`,
+                      width: isActive ? sizes.active : sizes.inactive,
+                      opacity: isActive ? 1 : 0.4,
+                      transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                    }}
                   >
                     <Image
                       src={feature.imageSrc}
@@ -122,4 +141,3 @@ export function FeatureSection() {
     </section>
   );
 }
-

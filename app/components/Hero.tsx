@@ -116,7 +116,7 @@ export function Hero() {
             </a>
             <a
               className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-accent px-7 text-sm font-bold text-white shadow-sm transition hover:brightness-110 whitespace-nowrap md:h-[56px] md:w-[171px] md:px-[28px] md:py-[20px] md:text-[16px] md:leading-[16px] md:tracking-[-0.32px]"
-              href="#apply"
+              href="/apply"
             >
               <Image
                 src="/images/hero/hero-icon-apply@2x.png"

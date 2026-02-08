@@ -60,7 +60,7 @@ export function ProcessSection() {
   };
 
   return (
-    <section className="bg-[#f6f5ee] py-section">
+    <section className="bg-[#f6f5ee] pt-[150px] pb-[150px]">
       <div className="mx-auto w-full max-w-[1920px] px-4 md:px-[60px]">
         {/* 상단 타이틀 */}
         <div className="mx-auto max-w-[720px] text-center">

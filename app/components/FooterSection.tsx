@@ -59,9 +59,9 @@ export function FooterSection() {
                 사업자 등록 번호 : 232-86-01857
               </p>
               <p className="text-[#9E9E9E] text-[12px] md:text-[14px] tracking-[-0.02em] leading-[1.4]">
-                주소 : 경기도 하남시 신우실로 100
+                본사 : 부산시 기장군 기장해안로98, A210호
                 <br />
-                현대 테라타워 감일 327, 328 스낵왕
+                수도권 : 경기도 하남시 신우실로 100, 327~328
               </p>
             </div>
 

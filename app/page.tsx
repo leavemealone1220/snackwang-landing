@@ -3,7 +3,7 @@ import { ClientLogosSection } from "./components/ClientLogosSection";
 import { FeatureSection } from "./components/FeatureSection";
 import { PricingSection } from "./components/PricingSection";
 import { CustomizationSection } from "./components/CustomizationSection";
-import { ThemeSection } from "./components/ThemeSection";
+import { ThemeSectionV2 } from "./components/ThemeSectionV2";
 import { ProcessSection } from "./components/ProcessSection";
 import { FAQSection } from "./components/FAQSection";
 import { StatsSection } from "./components/StatsSection";
@@ -19,7 +19,7 @@ export default function Home() {
       <FeatureSection />
       <PricingSection />
       <CustomizationSection />
-      <ThemeSection />
+      <ThemeSectionV2 />
       <ProcessSection />
       <div className="bg-[#f6f5ee] pt-[80px]">
         <FAQSection />
