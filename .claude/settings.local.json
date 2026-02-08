@@ -18,7 +18,20 @@
       "Bash(npx next build:*)",
       "Bash(ping:*)",
       "Bash(npx kill-port:*)",
-      "mcp__figma__download_figma_images"
+      "mcp__figma__download_figma_images",
+      "mcp__claude_ai_Figma__get_metadata",
+      "mcp__claude_ai_Figma__get_screenshot",
+      "Bash(python:*)",
+      "mcp__claude_ai_Figma__get_design_context",
+      "Bash(curl:*)",
+      "Bash(ls:*)",
+      "Bash(for f in faq-icecream.png faq-hotdog.png faq-fries.png faq-hamburger.png faq-cookie.png faq-salad.png faq-donut.png faq-lunchbox.png faq-fishbread.png faq-watermelon.png faq-phone-frame.png)",
+      "Bash(do echo -n \"$f: \")",
+      "Bash(identify:*)",
+      "Bash(git checkout:*)",
+      "Bash(tr:*)",
+      "WebFetch(domain:www.snackwang.com)",
+      "WebFetch(domain:snackwang-landing.vercel.app)"
     ]
   }
 }
