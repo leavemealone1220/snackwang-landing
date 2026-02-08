@@ -9,11 +9,74 @@ const bagelFatOne = Bagel_Fat_One({
   weight: "400",
 });
 
+const SITE_URL = "https://snackwang.com";
+
 export const metadata: Metadata = {
-  title: "스낵왕 - 한입이 필요한 순간",
-  description: "출근 견디게 하는 건 결국 한입이었다. 스낵왕으로 간편하게.",
+  title: {
+    default: "스낵왕 - 기업 사내 간식 구독 서비스 | 배송부터 진열까지",
+    template: "%s | 스낵왕",
+  },
+  description:
+    "스낵왕은 기업 사내 간식을 배송부터 진열·관리까지 책임지는 구독 서비스입니다. 맞춤 간식 큐레이션, 무인 편의점, 케이터링까지. 지금 무료 상담 신청하세요.",
+  keywords: [
+    "기업간식",
+    "사내간식",
+    "간식배송",
+    "간식구독",
+    "오피스간식",
+    "회사간식",
+    "복지간식",
+    "간식관리",
+    "무인편의점",
+    "스낵왕",
+  ],
+  metadataBase: new URL(SITE_URL),
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: "/favicon.ico",
+  },
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: SITE_URL,
+    siteName: "스낵왕",
+    title: "스낵왕 - 기업 사내 간식 구독 서비스",
+    description:
+      "배송부터 진열·관리까지 올인원 간식 구독. 맞춤 큐레이션으로 임직원 복지를 간편하게.",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "스낵왕 - 기업 사내 간식 구독 서비스",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "스낵왕 - 기업 사내 간식 구독 서비스",
+    description:
+      "배송부터 진열·관리까지 올인원 간식 구독. 맞춤 큐레이션으로 임직원 복지를 간편하게.",
+    images: ["/images/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "",
+    other: {
+      "naver-site-verification": "",
+    },
   },
 };
 
