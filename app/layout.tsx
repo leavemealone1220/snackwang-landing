@@ -12,6 +12,9 @@ const bagelFatOne = Bagel_Fat_One({
 export const metadata: Metadata = {
   title: "스낵왕 - 한입이 필요한 순간",
   description: "출근 견디게 하는 건 결국 한입이었다. 스낵왕으로 간편하게.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
