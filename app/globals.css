@@ -53,20 +53,7 @@
     will-change: transform;
   }
 
-  /* 채널톡 모바일: 버튼 축소 + 텍스트 숨김 */
-  @media (max-width: 768px) {
-    #ch-plugin-entry {
-      transform: scale(0.75);
-      transform-origin: bottom right;
-    }
-    #ch-plugin-entry .ch-desk-messenger-text,
-    #ch-plugin-entry [class*="label"],
-    #ch-plugin-entry [class*="text"] {
-      display: none !important;
-    }
-  }
-
-  /* 드래그 슬라이더용: 스크롤바 숨기기 */
+/* 드래그 슬라이더용: 스크롤바 숨기기 */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
