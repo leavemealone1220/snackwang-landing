@@ -45,14 +45,21 @@ export const metadata: Metadata = {
     title: "스낵왕 - 기업 사내 간식 구독 서비스",
     description:
       "배송부터 진열·관리까지 올인원 간식 구독. 맞춤 큐레이션으로 임직원 복지를 간편하게.",
-    images: ["/opengraph-image"],
+    images: [
+      {
+        url: `${SITE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "스낵왕 - 기업 사내 간식 구독 서비스",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "스낵왕 - 기업 사내 간식 구독 서비스",
     description:
       "배송부터 진열·관리까지 올인원 간식 구독. 맞춤 큐레이션으로 임직원 복지를 간편하게.",
-    images: ["/opengraph-image"],
+    images: [`${SITE_URL}/opengraph-image`],
   },
   robots: {
     index: true,
