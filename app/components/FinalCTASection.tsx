@@ -63,10 +63,10 @@ export function FinalCTASection() {
 
           {/* CTA 버튼 */}
           <div className="mt-6 md:mt-8 flex items-center justify-center gap-3 md:gap-4 flex-wrap">
-            <button className="bg-[#7B79FF] text-[#F8F8F9] rounded-full px-[20px] py-[14px] md:px-[28px] md:py-[18px] text-[13px] md:text-[14px] lg:text-[16px] font-bold tracking-[-0.02em] hover:opacity-90 transition-opacity">
+            <a href="/apply" className="bg-[#7B79FF] text-[#F8F8F9] rounded-full px-[20px] py-[14px] md:px-[28px] md:py-[18px] text-[13px] md:text-[14px] lg:text-[16px] font-bold tracking-[-0.02em] hover:opacity-90 transition-opacity">
               샘플 큐레이션 보기
-            </button>
-            <button className="bg-[#FF6D39] text-[#F8F8F9] rounded-full px-[20px] py-[14px] md:px-[28px] md:py-[18px] text-[13px] md:text-[14px] lg:text-[16px] font-bold tracking-[-0.02em] hover:opacity-90 transition-opacity flex items-center gap-2">
+            </a>
+            <a href="/apply" className="bg-[#FF6D39] text-[#F8F8F9] rounded-full px-[20px] py-[14px] md:px-[28px] md:py-[18px] text-[13px] md:text-[14px] lg:text-[16px] font-bold tracking-[-0.02em] hover:opacity-90 transition-opacity flex items-center gap-2">
               <Image
                 src="/images/cta/cta-watermelon.png"
                 alt=""
@@ -75,7 +75,7 @@ export function FinalCTASection() {
                 className="w-[16px] md:w-[20px] lg:w-[23px] h-auto"
               />
               지금 신청하기
-            </button>
+            </a>
           </div>
         </div>
       </div>

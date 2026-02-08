@@ -52,9 +52,10 @@ export function PricingSection() {
           {/* 요금제 카드 */}
           <div className="flex w-full flex-col items-center justify-center gap-3 sm:gap-4 md:flex-row md:gap-6">
             {PLANS.map((plan) => (
-              <article
+              <a
                 key={plan.id}
-                className="flex w-full max-w-[280px] flex-col items-center text-left sm:max-w-[300px] md:max-w-[320px]"
+                href="/apply"
+                className="flex w-full max-w-[280px] flex-col items-center text-left sm:max-w-[300px] md:max-w-[320px] hover:opacity-90 transition-opacity cursor-pointer"
               >
                 {/* Figma에서 추출한 카드 전체 이미지 그대로 사용 */}
                 <div className="w-full">
@@ -72,7 +73,7 @@ export function PricingSection() {
                   {plan.name} 플랜, 가격 {plan.price}, {plan.period}. {plan.highlight}.
                   {plan.features.join(", ")}
                 </p>
-              </article>
+              </a>
             ))}
           </div>
         </div>
