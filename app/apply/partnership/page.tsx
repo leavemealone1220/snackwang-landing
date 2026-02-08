@@ -90,7 +90,8 @@ export default function PartnershipPage() {
         <div className="flex items-center gap-[20px]">
           <a
             className="hidden items-center justify-center rounded-full bg-[#eeede9] text-[#02acea] font-bold md:inline-flex h-[56px] px-[28px] py-[20px] text-[16px] leading-[16px] tracking-[-0.32px]"
-            href="#brochure"
+            href="/docs/스낵왕_서비스소개서.pdf"
+            download
           >
             서비스 소개서 받기
           </a>

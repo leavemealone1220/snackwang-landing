@@ -40,7 +40,8 @@ export function Hero() {
           <div className="flex items-center gap-[10px] md:gap-[30px]">
             <a
               className="hidden items-center justify-center rounded-full bg-[#f8f8f9] text-[#02acea] font-bold transition hover:bg-white md:inline-flex h-[56px] px-[28px] py-[20px] text-[16px] leading-[16px] tracking-[-0.32px]"
-              href="#brochure"
+              href="/docs/스낵왕_서비스소개서.pdf"
+              download
             >
               서비스 소개서 받기
             </a>
