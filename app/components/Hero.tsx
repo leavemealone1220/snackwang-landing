@@ -47,7 +47,7 @@ export function Hero() {
             </a>
             <a
               className="inline-flex items-center justify-center gap-[4px] md:gap-[6px] rounded-full bg-[#02acea] text-[#f8f8f9] font-bold transition hover:brightness-110 h-[44px] px-[16px] py-[12px] text-[13px] leading-[16px] tracking-[-0.32px] md:h-[56px] md:px-[28px] md:py-[20px] md:text-[16px]"
-              href="#b2b"
+              href="https://app.snackwang.com"
             >
               <Image
                 src="/images/hero/hero-icon-b2b@2x.png"

@@ -97,7 +97,7 @@ export default function InquiryPage() {
           </a>
           <a
             className="inline-flex items-center justify-center gap-[6px] rounded-full bg-[#02acea] text-[#f8f8f9] font-bold h-[56px] px-[28px] py-[20px] text-[16px] leading-[16px] tracking-[-0.32px]"
-            href="#b2b"
+            href="https://app.snackwang.com"
           >
             <Image
               src="/images/hero/hero-icon-b2b@2x.png"
