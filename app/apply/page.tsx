@@ -71,7 +71,9 @@ export default function ApplyPage() {
     );
   };
 
-  const handleSubmit = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
     if (!selectedService) {
       alert("서비스 형태를 선택해주세요.");
       return;
@@ -93,15 +95,31 @@ export default function ApplyPage() {
       return;
     }
 
-    console.log("신청 데이터:", {
-      service: selectedService,
-      ...form,
-      budget: selectedBudget,
-      employees: selectedEmployees,
-      snacks: selectedSnacks,
-      agreePrivacy,
-    });
-    alert("서비스 신청이 완료되었습니다. 담당 매니저가 2영업일 이내에 연락드리겠습니다.");
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "apply",
+          service: selectedService,
+          ...form,
+          budget: selectedBudget,
+          employees: selectedEmployees,
+          snacks: selectedSnacks,
+        }),
+      });
+
+      if (res.ok) {
+        alert("서비스 신청이 완료되었습니다. 담당 매니저가 2영업일 이내에 연락드리겠습니다.");
+      } else {
+        alert("전송에 실패했습니다. 잠시 후 다시 시도해주세요.");
+      }
+    } catch {
+      alert("네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -459,9 +477,10 @@ export default function ApplyPage() {
           <div className="mt-[60px] flex justify-center">
             <button
               onClick={handleSubmit}
-              className="flex h-[56px] w-[172px] items-center justify-center rounded-full bg-[#02acea] text-[18px] font-bold tracking-[-0.36px] text-[#f8f8f9] transition hover:brightness-110"
+              disabled={isSubmitting}
+              className="flex h-[56px] w-[172px] items-center justify-center rounded-full bg-[#02acea] text-[18px] font-bold tracking-[-0.36px] text-[#f8f8f9] transition hover:brightness-110 disabled:opacity-50"
             >
-              신청하기
+              {isSubmitting ? "전송 중..." : "신청하기"}
             </button>
           </div>
         </div>

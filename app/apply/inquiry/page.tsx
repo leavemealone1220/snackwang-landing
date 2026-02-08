@@ -26,7 +26,9 @@ export default function InquiryPage() {
     inquiry: "",
   });
 
-  const handleSubmit = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
     if (!selectedType) {
       alert("문의 유형을 선택해주세요.");
       return;
@@ -40,12 +42,28 @@ export default function InquiryPage() {
       return;
     }
 
-    console.log("문의 데이터:", {
-      type: selectedType,
-      ...form,
-      agreePrivacy,
-    });
-    alert("이용 문의가 완료되었습니다. 담당 매니저가 2영업일 이내에 연락드리겠습니다.");
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "inquiry",
+          type: selectedType,
+          ...form,
+        }),
+      });
+
+      if (res.ok) {
+        alert("이용 문의가 완료되었습니다. 담당 매니저가 2영업일 이내에 연락드리겠습니다.");
+      } else {
+        alert("전송에 실패했습니다. 잠시 후 다시 시도해주세요.");
+      }
+    } catch {
+      alert("네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -285,9 +303,10 @@ export default function InquiryPage() {
           <div className="mt-[60px] flex justify-center">
             <button
               onClick={handleSubmit}
-              className="flex h-[56px] w-[172px] items-center justify-center rounded-full bg-[#02acea] text-[18px] font-bold tracking-[-0.36px] text-[#f8f8f9] transition hover:brightness-110"
+              disabled={isSubmitting}
+              className="flex h-[56px] w-[172px] items-center justify-center rounded-full bg-[#02acea] text-[18px] font-bold tracking-[-0.36px] text-[#f8f8f9] transition hover:brightness-110 disabled:opacity-50"
             >
-              문의하기
+              {isSubmitting ? "전송 중..." : "문의하기"}
             </button>
           </div>
         </div>
