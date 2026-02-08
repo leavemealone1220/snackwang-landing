@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function ClientLogosSection() {
   return (
-    <section className="bg-[#f6f5ee] py-section">
+    <section className="bg-[#f6f5ee] py-[40px] md:py-section">
       {/* 1920px 기준으로 좌우 여백 없이 스트립 전체가 보이도록 확장 */}
       <div className="mx-auto w-full max-w-[1920px] px-0">
         {/* 상단 카피 */}
