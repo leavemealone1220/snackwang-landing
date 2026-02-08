@@ -7,19 +7,19 @@ const PLAN_TIERS = [
   {
     id: "30",
     label: "30만원대",
-    sublabel: "소규모 (15평 이하)",
+    sublabel: "소규모 (20명)",
     image: "/images/customization/floorplan.png",
   },
   {
     id: "100",
     label: "100만원대",
-    sublabel: "중규모 (25평형)",
+    sublabel: "중규모 (50명 이상)",
     image: "/images/customization/floorplan.png",
   },
   {
     id: "1000",
     label: "1,000만원 이상",
-    sublabel: "대규모 (60평형)",
+    sublabel: "대규모 (100명 이상)",
     image: "/images/customization/floorplan.png",
   },
   {
