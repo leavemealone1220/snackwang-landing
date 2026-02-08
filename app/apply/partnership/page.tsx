@@ -27,6 +27,24 @@ export default function PartnershipPage() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [files, setFiles] = useState<File[]>([]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const newFiles = Array.from(e.target.files);
+      const totalSize = [...files, ...newFiles].reduce((sum, f) => sum + f.size, 0);
+      if (totalSize > 10 * 1024 * 1024) {
+        alert("첨부파일 총 용량은 10MB 이하로 제한됩니다.");
+        return;
+      }
+      setFiles((prev) => [...prev, ...newFiles]);
+    }
+    e.target.value = "";
+  };
+
+  const removeFile = (index: number) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+  };
 
   const handleSubmit = async () => {
     if (!selectedType) {
@@ -44,14 +62,15 @@ export default function PartnershipPage() {
 
     setIsSubmitting(true);
     try {
+      const formData = new FormData();
+      formData.append("formType", "partnership");
+      formData.append("type", selectedType);
+      Object.entries(form).forEach(([key, val]) => formData.append(key, val));
+      files.forEach((file) => formData.append("files", file));
+
       const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          formType: "partnership",
-          type: selectedType,
-          ...form,
-        }),
+        body: formData,
       });
 
       if (res.ok) {
@@ -253,6 +272,63 @@ export default function PartnershipPage() {
               onChange={(e) => setForm({ ...form, inquiry: e.target.value })}
               className="mt-[20px] h-[224px] w-full resize-none rounded-[40px] bg-white px-[25px] py-[40px] text-[20px] font-medium leading-[1.4] tracking-[-0.4px] text-[#1d1d1d] placeholder:text-[#979797] outline-none"
             />
+          </div>
+
+          {/* 파일 첨부 */}
+          <div className="mt-[100px]">
+            <div className="flex items-center gap-[8px]">
+              <h2 className="text-[32px] font-bold leading-[48px] tracking-[-0.64px] text-[#1d1d1d]">
+                파일 첨부
+              </h2>
+              <span className="text-[20px] font-medium leading-[48px] tracking-[-0.4px] text-[#979797]">
+                *선택 (최대 10MB)
+              </span>
+            </div>
+            <p className="mt-[8px] text-[16px] font-medium tracking-[-0.32px] text-[#979797]">
+              회사소개서, 제안서, 상품 카탈로그 등을 첨부해주세요.
+            </p>
+            <div className="mt-[20px]">
+              <label className="inline-flex cursor-pointer items-center gap-[8px] rounded-full bg-white px-[24px] py-[14px] text-[18px] font-bold tracking-[-0.36px] text-[#1d1d1d] hover:bg-[#eeede9] transition-colors">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1d1d1d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
+                </svg>
+                파일 선택
+                <input
+                  type="file"
+                  multiple
+                  accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif,.zip"
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+              </label>
+            </div>
+            {files.length > 0 && (
+              <div className="mt-[16px] flex flex-col gap-[10px]">
+                {files.map((file, i) => (
+                  <div key={i} className="flex items-center gap-[12px] rounded-[16px] bg-white px-[20px] py-[14px]">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#02acea" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                      <polyline points="14 2 14 8 20 8" />
+                    </svg>
+                    <span className="flex-1 text-[16px] font-medium tracking-[-0.32px] text-[#1d1d1d] truncate">
+                      {file.name}
+                    </span>
+                    <span className="text-[14px] text-[#979797] shrink-0">
+                      {(file.size / 1024 / 1024).toFixed(1)}MB
+                    </span>
+                    <button
+                      onClick={() => removeFile(i)}
+                      className="shrink-0 text-[#979797] hover:text-[#ff4444] transition-colors"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                      </svg>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* 개인정보 수집 및 이용동의 */}

@@ -6,8 +6,28 @@ export const dynamic = "force-dynamic";
 export async function POST(req: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   try {
-    const body = await req.json();
-    const { formType, ...data } = body;
+    const contentType = req.headers.get("content-type") || "";
+    let formType = "";
+    let data: Record<string, string> = {};
+    let attachments: { filename: string; content: Buffer }[] = [];
+
+    if (contentType.includes("multipart/form-data")) {
+      const formData = await req.formData();
+      formType = formData.get("formType") as string;
+      for (const [key, value] of Array.from(formData.entries())) {
+        if (key === "files" && value instanceof File) {
+          const buffer = Buffer.from(await value.arrayBuffer());
+          attachments.push({ filename: value.name, content: buffer });
+        } else if (typeof value === "string") {
+          data[key] = value;
+        }
+      }
+    } else {
+      const body = await req.json();
+      formType = body.formType;
+      const { formType: _, ...rest } = body;
+      data = rest;
+    }
 
     let subject = "";
     let html = "";
@@ -25,7 +45,7 @@ export async function POST(req: Request) {
           <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">이메일</td><td style="padding:8px;border:1px solid #ddd;">${data.email}</td></tr>
           <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">월 예산</td><td style="padding:8px;border:1px solid #ddd;">${data.budget}</td></tr>
           <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">임직원 수</td><td style="padding:8px;border:1px solid #ddd;">${data.employees}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">선호 간식</td><td style="padding:8px;border:1px solid #ddd;">${data.snacks?.join(", ") || "-"}</td></tr>
+          <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">선호 간식</td><td style="padding:8px;border:1px solid #ddd;">${data.snacks || "-"}</td></tr>
           <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">문의 내용</td><td style="padding:8px;border:1px solid #ddd;">${data.inquiry || "-"}</td></tr>
         </table>
       `;
@@ -45,6 +65,9 @@ export async function POST(req: Request) {
       `;
     } else if (formType === "partnership") {
       subject = `[스낵왕] 제휴 문의 - ${data.company}`;
+      const fileInfo = attachments.length > 0
+        ? attachments.map((a) => a.filename).join(", ")
+        : "없음";
       html = `
         <h2>제휴 문의</h2>
         <table style="border-collapse:collapse;width:100%;max-width:600px;">
@@ -54,6 +77,7 @@ export async function POST(req: Request) {
           <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">담당자</td><td style="padding:8px;border:1px solid #ddd;">${data.name}</td></tr>
           <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">연락처</td><td style="padding:8px;border:1px solid #ddd;">${data.phone}</td></tr>
           <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">이메일</td><td style="padding:8px;border:1px solid #ddd;">${data.email}</td></tr>
+          <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">첨부파일</td><td style="padding:8px;border:1px solid #ddd;">${fileInfo}</td></tr>
           <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">문의 내용</td><td style="padding:8px;border:1px solid #ddd;">${data.inquiry || "-"}</td></tr>
         </table>
       `;
@@ -70,6 +94,7 @@ export async function POST(req: Request) {
       to: toEmail,
       subject,
       html,
+      ...(attachments.length > 0 && { attachments }),
     });
 
     if (error) {
