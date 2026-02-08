@@ -473,11 +473,11 @@ export function FAQSection() {
       {/* 모바일 레이아웃 (~lg): 아코디언 FAQ */}
       {/* ══════════════════════════════════════════════════ */}
       <section
-        className="relative lg:hidden"
+        className="relative lg:hidden bg-[#02ACEA] rounded-t-[40px]"
         style={{ marginBottom: "-100px" }}
       >
-        {/* 파란 상단 영역 + 타이틀 */}
-        <div className="bg-[#02ACEA] rounded-t-[40px] px-5 pt-14 pb-6">
+        {/* 타이틀 (section 자체가 파란 배경) */}
+        <div className="px-5 pt-14 pb-6">
           <p className="text-center text-white/60 font-medium text-[14px] tracking-[-0.28px]">
             Q&A
           </p>
@@ -487,8 +487,8 @@ export function FAQSection() {
           </p>
         </div>
 
-        {/* 아코디언 카드 리스트 (파란 배경 위) */}
-        <div className="bg-[#02ACEA] px-5 pb-10">
+        {/* 아코디언 카드 리스트 */}
+        <div className="px-5 pb-10">
           <div className="flex flex-col gap-3">
             {FAQ_DATA.map((item, i) => {
               const isOpen = openIndex === i;
@@ -541,10 +541,10 @@ export function FAQSection() {
           </div>
         </div>
 
-        {/* 노란 하단 영역 + CTA */}
+        {/* 노란 하단 영역 + CTA (곡선 뒤로 파란색이 보임) */}
         <div
           className="bg-[#FFC845] px-5 pt-10 pb-14 text-center"
-          style={{ borderRadius: "40% 40% 0 0 / 30px 30px 0 0" }}
+          style={{ borderRadius: "50% 50% 0 0 / 40px 40px 0 0" }}
         >
           <button
             className="bg-[#151515] text-white font-bold text-[16px] tracking-[-0.32px] px-8 py-4 rounded-full border border-white hover:bg-[#333] transition-colors"
