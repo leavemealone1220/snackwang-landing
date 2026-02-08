@@ -8,8 +8,8 @@ export function FinalCTASection() {
           {/* 헤드라인 – Bagel Fat One */}
           <div className="relative inline-block">
             {/* 1행: 출근 [넥타이] 견디게 하는 건 */}
-            <div className="flex items-center justify-center flex-wrap gap-x-1">
-              <span className="font-display text-[36px] md:text-[56px] lg:text-[80px] text-[#151515] leading-[1.4] tracking-[-0.017em]">
+            <div className="flex items-center justify-center flex-nowrap gap-x-1">
+              <span className="font-display text-[28px] sm:text-[36px] md:text-[56px] lg:text-[80px] text-[#151515] leading-[1.4] tracking-[-0.017em]">
                 출근
               </span>
               <Image
@@ -17,16 +17,16 @@ export function FinalCTASection() {
                 alt=""
                 width={34}
                 height={90}
-                className="inline-block w-[16px] md:w-[24px] lg:w-[34px] h-auto mx-1"
+                className="inline-block w-[12px] sm:w-[16px] md:w-[24px] lg:w-[34px] h-auto mx-1"
               />
-              <span className="font-display text-[36px] md:text-[56px] lg:text-[80px] text-[#151515] leading-[1.4] tracking-[-0.017em]">
+              <span className="font-display text-[28px] sm:text-[36px] md:text-[56px] lg:text-[80px] text-[#151515] leading-[1.4] tracking-[-0.017em]">
                 견디게 하는 건
               </span>
             </div>
 
             {/* 2행: 결국 [토스트][수박][붕어빵] 한 입 이었다. */}
-            <div className="flex items-center justify-center flex-wrap gap-x-1">
-              <span className="font-display text-[36px] md:text-[56px] lg:text-[80px] text-[#151515] leading-[1.4] tracking-[-0.017em]">
+            <div className="flex items-center justify-center flex-nowrap gap-x-1">
+              <span className="font-display text-[28px] sm:text-[36px] md:text-[56px] lg:text-[80px] text-[#151515] leading-[1.4] tracking-[-0.017em]">
                 결국
               </span>
               <Image
@@ -34,23 +34,23 @@ export function FinalCTASection() {
                 alt=""
                 width={94}
                 height={64}
-                className="inline-block w-[44px] md:w-[66px] lg:w-[94px] h-auto mx-1"
+                className="inline-block w-[34px] sm:w-[44px] md:w-[66px] lg:w-[94px] h-auto mx-0.5 sm:mx-1"
               />
               <Image
                 src="/images/cta/cta-watermelon.png"
                 alt=""
                 width={378}
                 height={387}
-                className="inline-block w-[30px] md:w-[44px] lg:w-[62px] h-auto mx-1"
+                className="inline-block w-[24px] sm:w-[30px] md:w-[44px] lg:w-[62px] h-auto mx-0.5 sm:mx-1"
               />
               <Image
                 src="/images/cta/cta-fishbread.png"
                 alt=""
                 width={87}
                 height={63}
-                className="inline-block w-[40px] md:w-[60px] lg:w-[87px] h-auto mx-1"
+                className="inline-block w-[30px] sm:w-[40px] md:w-[60px] lg:w-[87px] h-auto mx-0.5 sm:mx-1"
               />
-              <span className="font-display text-[36px] md:text-[56px] lg:text-[80px] text-[#151515] leading-[1.4] tracking-[-0.017em]">
+              <span className="font-display text-[28px] sm:text-[36px] md:text-[56px] lg:text-[80px] text-[#151515] leading-[1.4] tracking-[-0.017em]">
                 한 입 이었다.
               </span>
             </div>
