@@ -142,9 +142,10 @@ export default function InquiryPage() {
               <p>
                 문의를 남겨주시면 담당 매니저가 내용을 확인하여{" "}
                 <span className="font-bold">2영업일 이내에 연락</span>을 드립니다.
+                <br className="hidden md:inline" />
+                도입 전 검토 단계에서 필요한 정보부터 서비스 이용 전반에 대한
+                {" "}궁금한 점까지 차분히 안내해 드릴 예정입니다.
               </p>
-              <p>도입 전 검토 단계에서 필요한 정보부터 서비스 이용 전반에 대한</p>
-              <p>궁금한 점까지 차분히 안내해 드릴 예정입니다.</p>
             </div>
             {/* 장식 이미지들 - 데스크톱에서만 */}
             <div className="hidden lg:block">
