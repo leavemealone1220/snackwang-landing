@@ -61,9 +61,13 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "잘못된 폼 타입입니다." }, { status: 400 });
     }
 
+    const toEmail = formType === "partnership"
+      ? "partnership@snackwang.com"
+      : "help@snackwang.com";
+
     const { error } = await resend.emails.send({
       from: "스낵왕 <noreply@snackwang.com>",
-      to: "help@snackwang.com",
+      to: toEmail,
       subject,
       html,
     });

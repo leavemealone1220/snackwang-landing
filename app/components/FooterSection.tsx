@@ -40,12 +40,12 @@ export function FooterSection() {
                 feliz
               </span>
               <div className="flex gap-2">
-                <button className="bg-[#323232] text-white rounded-full px-[16px] py-[8px] md:px-[20px] md:py-[10px] text-[12px] md:text-[14px] font-bold tracking-[-0.02em] hover:bg-[#444] transition-colors">
+                <a href="/apply/partnership" className="bg-[#323232] text-white rounded-full px-[16px] py-[8px] md:px-[20px] md:py-[10px] text-[12px] md:text-[14px] font-bold tracking-[-0.02em] hover:bg-[#444] transition-colors">
                   제휴 신청하기
-                </button>
-                <button className="bg-[#006185] text-white rounded-full px-[16px] py-[8px] md:px-[20px] md:py-[10px] text-[12px] md:text-[14px] font-bold tracking-[-0.02em] hover:opacity-90 transition-opacity">
+                </a>
+                <a href="/apply/partnership" className="bg-[#006185] text-white rounded-full px-[16px] py-[8px] md:px-[20px] md:py-[10px] text-[12px] md:text-[14px] font-bold tracking-[-0.02em] hover:opacity-90 transition-opacity">
                   입점 신청하기
-                </button>
+                </a>
               </div>
             </div>
 
