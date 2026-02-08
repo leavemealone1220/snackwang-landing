@@ -62,7 +62,7 @@ export async function POST(req: Request) {
     }
 
     const { error } = await resend.emails.send({
-      from: "스낵왕 랜딩 <onboarding@resend.dev>",
+      from: "스낵왕 <noreply@send.snackwang.com>",
       to: "help@snackwang.com",
       subject,
       html,
