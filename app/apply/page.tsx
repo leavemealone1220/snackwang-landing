@@ -110,10 +110,11 @@ export default function ApplyPage() {
         }),
       });
 
+      const data = await res.json();
       if (res.ok) {
         alert("서비스 신청이 완료되었습니다. 담당 매니저가 2영업일 이내에 연락드리겠습니다.");
       } else {
-        alert("전송에 실패했습니다. 잠시 후 다시 시도해주세요.");
+        alert("전송 실패: " + (data.error || "알 수 없는 오류"));
       }
     } catch {
       alert("네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
