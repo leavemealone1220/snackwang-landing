@@ -62,41 +62,41 @@ export function Hero() {
 
         {/* 히어로 본문 (반응형) */}
         <div className="flex flex-1 flex-col items-center justify-center pb-20 pt-10 text-center md:pb-28">
-          <h1 className="font-display text-[40px] leading-[1.15] tracking-[-0.02em] sm:text-[52px] md:text-[72px] md:leading-[1.1] lg:text-[80px]">
-            <span className="inline-flex flex-wrap items-center justify-center gap-3">
+          <h1 className="font-display text-[32px] leading-[1.15] tracking-[-0.02em] sm:text-[52px] md:text-[72px] md:leading-[1.1] lg:text-[80px]">
+            <span className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-3">
               출근
               <Image
                 src="/images/hero/hero-tie@2x.png"
                 alt=""
                 width={34}
                 height={90}
-                className="h-[44px] w-auto md:h-[72px]"
+                className="h-[36px] w-auto sm:h-[44px] md:h-[72px]"
               />
               견디게 하는 건
             </span>
             <span className="mt-3 block md:mt-4">
               결국{" "}
-              <span className="inline-flex items-end gap-3 align-middle">
+              <span className="inline-flex items-end gap-2 sm:gap-3 align-middle">
                 <Image
                   src="/images/hero/hero-icon-toast@2x.png"
                   alt=""
                   width={94}
                   height={64}
-                  className="h-[26px] w-auto sm:h-[34px] md:h-[54px]"
+                  className="h-[22px] w-auto sm:h-[34px] md:h-[54px]"
                 />
                 <Image
                   src="/images/hero/hero-icon-watermelon@2x.png"
                   alt=""
                   width={62}
                   height={63}
-                  className="h-[26px] w-auto sm:h-[34px] md:h-[54px]"
+                  className="h-[22px] w-auto sm:h-[34px] md:h-[54px]"
                 />
                 <Image
                   src="/images/hero/hero-icon-snack@2x.png"
                   alt=""
                   width={87}
                   height={63}
-                  className="h-[26px] w-auto sm:h-[34px] md:h-[54px]"
+                  className="h-[22px] w-auto sm:h-[34px] md:h-[54px]"
                 />
               </span>{" "}
               한 입 이었다.
