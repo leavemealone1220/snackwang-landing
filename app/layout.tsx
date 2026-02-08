@@ -9,7 +9,7 @@ const bagelFatOne = Bagel_Fat_One({
   weight: "400",
 });
 
-const SITE_URL = "https://snackwang-landing.vercel.app";
+const SITE_URL = "https://snackwang.com";
 
 export const metadata: Metadata = {
   title: {
