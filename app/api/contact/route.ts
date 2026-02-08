@@ -70,12 +70,12 @@ export async function POST(req: Request) {
 
     if (error) {
       console.error("이메일 전송 실패:", error);
-      return NextResponse.json({ error: error.message || JSON.stringify(error) }, { status: 500 });
+      return NextResponse.json({ error: "이메일 전송에 실패했습니다." }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("API 에러:", err);
-    return NextResponse.json({ error: String(err) }, { status: 500 });
+    return NextResponse.json({ error: "서버 오류가 발생했습니다." }, { status: 500 });
   }
 }
