@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Bagel_Fat_One } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
+
+const GA_ID = "G-9NL33ME2V7";
 
 const bagelFatOne = Bagel_Fat_One({
   subsets: ["latin"],
@@ -88,6 +91,19 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${bagelFatOne.variable} font-sans`}>
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}');
+          `}
+        </Script>
         {children}
         {/* 채널톡 */}
         <script
