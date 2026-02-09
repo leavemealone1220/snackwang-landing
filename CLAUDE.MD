@@ -310,8 +310,16 @@
 - 모바일 최적화: Feature, Customization, ThemeV2, Process, Footer
 - apply 3개 페이지 모바일 반응형 구현
 
+#### 2026-02-10
+- Next.js 14.2.18 → 16.1.6 업그레이드
+- React 18.3.1 → 19.2.4 업그레이드
+- ESLint 8.x → 10.x 업그레이드
+- not-found.tsx 추가 (Next 16 필수)
+- 빌드 정상 확인 완료
+
 #### 현재 상태
 - **브랜치**: dev (최신) / main
 - **포트**: 3001 고정
+- **Next.js**: 16.1.6 / **React**: 19.2.4
 - **미완료 작업**: 없음
 
