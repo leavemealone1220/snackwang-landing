@@ -200,8 +200,9 @@ export default function ApplyPage() {
                 신청을 완료해 주시면 담당 매니저가 내용을 확인하여{" "}
                 <span className="font-bold">2영업일 이내에 연락</span>을 드립니다.
                 <br className="hidden md:inline" />
-                남겨주신 예산 범위에 맞춰 최적의 간식 큐레이션과 견적을
-                {" "}제안해 드리며, 상세한 서비스 구성까지 꼼꼼히 상담해 드릴 예정입니다.
+                남겨주신 예산 범위에 맞춰 최적의 간식 큐레이션과
+                <br className="hidden md:inline" />
+                견적을 제안해 드리며, 상세한 서비스 구성까지 꼼꼼히 상담해 드릴 예정입니다.
               </p>
             </div>
             {/* 장식 이미지들 - 데스크톱에서만 */}

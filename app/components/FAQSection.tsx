@@ -450,8 +450,9 @@ export function FAQSection() {
 
             {/* ═══════ CTA 버튼 ═══════ */}
             <div className="absolute" style={{ left: "1137px", top: "1833px", zIndex: 15 }}>
-              <button
-                className="bg-[#151515] text-white border border-white font-bold hover:bg-[#333] transition-colors"
+              <a
+                href="/apply"
+                className="inline-flex items-center justify-center bg-[#151515] text-white border border-white font-bold hover:bg-[#333] transition-colors"
                 style={{
                   height: "70px",
                   paddingLeft: "34px",
@@ -463,7 +464,7 @@ export function FAQSection() {
                 }}
               >
                 지금 문의하기
-              </button>
+              </a>
             </div>
           </div>
         </div>{/* 스케일 래퍼 닫기 */}
@@ -546,11 +547,12 @@ export function FAQSection() {
           className="bg-[#FFC845] px-5 pt-10 pb-24 text-center"
           style={{ borderRadius: "50% 50% 0 0 / 40px 40px 0 0" }}
         >
-          <button
-            className="bg-[#151515] text-white font-bold text-[16px] tracking-[-0.32px] px-8 py-4 rounded-full border border-white hover:bg-[#333] transition-colors"
+          <a
+            href="/apply"
+            className="inline-flex items-center justify-center bg-[#151515] text-white font-bold text-[16px] tracking-[-0.32px] px-8 py-4 rounded-full border border-white hover:bg-[#333] transition-colors"
           >
             지금 문의하기
-          </button>
+          </a>
         </div>
       </section>
     </>
