@@ -79,8 +79,8 @@ export function CustomizationSection() {
           </p>
 
           {/* 평면도 이미지 (페이드 전환) */}
-          <div className="mt-4 flex w-full max-w-4xl items-center justify-center md:mt-6">
-            <div className="relative w-full overflow-hidden aspect-[10/6]">
+          <div className={`mt-4 flex w-full items-center justify-center md:mt-6 transition-all duration-500 ${currentTier.id === "premium" ? "max-w-6xl" : "max-w-4xl"}`}>
+            <div className={`relative w-full overflow-hidden transition-all duration-500 ${currentTier.id === "premium" ? "aspect-[10/5]" : "aspect-[10/6]"}`}>
               <img
                 key={currentTier.id}
                 src={currentTier.image}
