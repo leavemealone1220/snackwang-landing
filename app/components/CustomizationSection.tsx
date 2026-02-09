@@ -8,25 +8,25 @@ const PLAN_TIERS = [
     id: "30",
     label: "30만원대",
     sublabel: "소규모 (20명)",
-    image: "/images/customization/floorplan.png",
+    image: "/images/customization/1_hd.png",
   },
   {
     id: "100",
     label: "100만원대",
     sublabel: "중규모 (50명 이상)",
-    image: "/images/customization/floorplan.png",
+    image: "/images/customization/2_hd.png",
   },
   {
     id: "1000",
     label: "1,000만원 이상",
     sublabel: "대규모 (100명 이상)",
-    image: "/images/customization/floorplan.png",
+    image: "/images/customization/3_hd.png",
   },
   {
     id: "premium",
     label: "프리미엄",
     sublabel: "맞춤 설계",
-    image: "/images/customization/floorplan.png",
+    image: "/images/customization/4_hd.png",
   },
 ];
 
@@ -80,28 +80,20 @@ export function CustomizationSection() {
 
           {/* 평면도 이미지 (페이드 전환) */}
           <div className="mt-4 flex w-full max-w-4xl items-center justify-center md:mt-6">
-            <div className="relative aspect-[10/7] w-full">
-              {PLAN_TIERS.map((tier) => (
-                <div
-                  key={tier.id}
-                  className="absolute inset-0 transition-opacity duration-500 ease-in-out"
-                  style={{ opacity: activeTier === tier.id ? 1 : 0 }}
-                >
-                  <Image
-                    src={tier.image}
-                    alt={`${tier.label} 사무실 평면도 예시`}
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-              ))}
+            <div className="relative w-full overflow-hidden aspect-[10/6]">
+              <img
+                key={currentTier.id}
+                src={currentTier.image}
+                alt={`${currentTier.label} 사무실 평면도 예시`}
+                className={`h-full w-full mix-blend-lighten animate-fadeIn ${currentTier.id === "premium" ? "object-contain contrast-[3]" : "object-cover object-bottom contrast-[2]"}`}
+              />
             </div>
           </div>
 
           {/* 하단 CTA */}
           <a
             href="#customize"
-            className="inline-flex items-center justify-center gap-[10px] rounded-full bg-[#151515] px-[34px] py-[20px] text-[18px] font-bold leading-[20px] tracking-[-0.36px] text-white transition hover:bg-black/80"
+            className="mt-4 md:mt-8 inline-flex items-center justify-center gap-[10px] rounded-full bg-[#151515] px-[34px] py-[20px] text-[18px] font-bold leading-[20px] tracking-[-0.36px] text-white transition hover:bg-black/80"
           >
             <Image
               src="/images/customization/cta-icon.png"

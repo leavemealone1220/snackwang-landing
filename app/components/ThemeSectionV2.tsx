@@ -104,7 +104,7 @@ export function ThemeSectionV2() {
           <div className="flex flex-col lg:flex-row gap-[16px] md:gap-[20px]">
             {/* 좌측 메인 카드 */}
             <div
-              className="bg-white rounded-[30px] md:rounded-[40px] flex flex-col items-center justify-center flex-shrink-0 w-full lg:w-[395px] py-[40px] lg:py-0"
+              className="bg-white rounded-[30px] md:rounded-[40px] flex flex-col items-center justify-center flex-shrink-0 w-full lg:w-[395px] py-[40px] lg:py-[50px]"
               style={{
                 minHeight: "auto",
                 boxShadow: "0px 8px 14px 0px rgba(0,0,0,0.1)",
@@ -139,7 +139,7 @@ export function ThemeSectionV2() {
                   isDragging ? "cursor-grabbing" : "cursor-grab"
                 }`}
                 style={{
-                  height: "160px",
+                  height: "200px",
                   boxShadow: "0px 8px 14px 0px rgba(0,0,0,0.1)",
                   touchAction: "pan-y",
                 }}
@@ -177,7 +177,7 @@ export function ThemeSectionV2() {
                         </div>
                       </div>
                       {/* 이미지 */}
-                      <div className="flex-shrink-0 -translate-x-[15px] md:translate-x-0 md:ml-[20px] relative">
+                      <div className="flex-shrink-0 -translate-x-[15px] md:-translate-x-[20px] relative">
                         {i === 0 && (
                           <div className="relative w-[100px] h-[80px] md:w-[200px] md:h-[144px]">
                             <Image
@@ -208,7 +208,7 @@ export function ThemeSectionV2() {
                           />
                         )}
                         {i === 2 && (
-                          <div className="relative">
+                          <div className="relative -translate-x-[10px] md:-translate-x-[30px]">
                             <Image
                               src="/images/theme-v2/slider-03-img.png"
                               alt=""
@@ -231,7 +231,7 @@ export function ThemeSectionV2() {
                 </div>
 
                 {/* 인디케이터 */}
-                <div className="absolute bottom-[12px] md:bottom-[16px] left-[20px] md:left-[40px] flex gap-[8px]">
+                <div className="absolute bottom-[16px] md:bottom-[24px] left-[20px] md:left-[40px] flex gap-[8px]">
                   {SLIDER_CARDS.map((_, i) => (
                     <button
                       key={i}
@@ -255,7 +255,7 @@ export function ThemeSectionV2() {
               <div className="flex flex-col sm:flex-row gap-[16px] md:gap-[20px]">
                 {/* 배송의 한계를 넘어 */}
                 <div
-                  className="bg-white rounded-[30px] md:rounded-[40px] flex flex-col items-center justify-center flex-1 py-[30px] md:py-0"
+                  className="bg-white rounded-[30px] md:rounded-[40px] flex flex-col items-center justify-center flex-1 py-[30px] md:py-[40px]"
                   style={{ minHeight: "240px" }}
                 >
                   <div className="relative w-[160px] md:w-[200px] h-[90px] md:h-[120px] mb-[10px]">
@@ -293,7 +293,7 @@ export function ThemeSectionV2() {
 
                 {/* 커스터마이징 */}
                 <div
-                  className="bg-white rounded-[30px] md:rounded-[40px] flex flex-col items-center justify-center w-full sm:w-auto sm:flex-shrink-0 lg:w-[295px] py-[30px] md:py-0"
+                  className="bg-white rounded-[30px] md:rounded-[40px] flex flex-col items-center justify-center w-full sm:w-auto sm:flex-shrink-0 lg:w-[295px] py-[30px] md:py-[40px]"
                   style={{ minHeight: "240px" }}
                 >
                   <Image
