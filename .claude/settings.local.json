@@ -31,7 +31,8 @@
       "Bash(git checkout:*)",
       "Bash(tr:*)",
       "WebFetch(domain:www.snackwang.com)",
-      "WebFetch(domain:snackwang-landing.vercel.app)"
+      "WebFetch(domain:snackwang-landing.vercel.app)",
+      "Bash(git merge:*)"
     ]
   }
 }
