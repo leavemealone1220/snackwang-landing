@@ -32,7 +32,12 @@
       "Bash(tr:*)",
       "WebFetch(domain:www.snackwang.com)",
       "WebFetch(domain:snackwang-landing.vercel.app)",
-      "Bash(git merge:*)"
+      "Bash(git merge:*)",
+      "Bash(npm view:*)",
+      "Bash(node -p:*)",
+      "Bash(npm install:*)",
+      "Bash(npx next dev:*)",
+      "Bash(taskkill:*)"
     ]
   }
 }

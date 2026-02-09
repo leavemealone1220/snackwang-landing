@@ -285,3 +285,41 @@
 
 이 가이드를 따르면, GPT와 이미 진행한 스타일/구조를 크게 해치지 않으면서 Claude도 자연스럽게 이어서 작업할 수 있다.
 
+---
+
+## 9. 멀티 기기 작업 & 작업 기록
+
+- 사용자는 **데스크톱(Windows)**과 **맥미니(macOS)** 두 환경에서 번갈아 작업한다.
+- 작업 마무리 시 Claude가 해야 할 것:
+  1. 변경사항 **커밋 & push**
+  2. 이 섹션(작업 로그)에 **작업 내역 업데이트** → 함께 커밋
+- 이렇게 하면 `git pull`만으로 다른 기기의 Claude도 동일한 맥락을 가진다.
+
+### 작업 로그
+
+#### 2026-02-09
+- 전체 11개 섹션 코드 완성 + 모바일 최적화 완료
+- apply 3개 페이지 모바일 반응형 완료
+- Customization 플랜별 이미지 적용 (mix-blend-lighten + contrast)
+- Hero/FAQ 링크 수정 (/apply 연결)
+- ThemeSectionV2 여백 확대, ProcessSection 태그 색상 변경
+- 미사용 테스트 이미지 12개 정리 삭제
+- Vercel 배포 완료: www.snackwang.com
+
+#### 2026-02-08
+- 모바일 최적화: Feature, Customization, ThemeV2, Process, Footer
+- apply 3개 페이지 모바일 반응형 구현
+
+#### 2026-02-10
+- Next.js 14.2.18 → 16.1.6 업그레이드
+- React 18.3.1 → 19.2.4 업그레이드
+- ESLint 8.x → 10.x 업그레이드
+- not-found.tsx 추가 (Next 16 필수)
+- 빌드 정상 확인 완료
+
+#### 현재 상태
+- **브랜치**: dev (최신) / main
+- **포트**: 3001 고정
+- **Next.js**: 16.1.6 / **React**: 19.2.4
+- **미완료 작업**: 없음
+
