@@ -59,7 +59,7 @@ export function ProcessSection() {
       <div className="mx-auto w-full max-w-[1920px] px-4 md:px-[60px]">
         {/* 상단 타이틀 */}
         <div className="mx-auto max-w-[720px] text-center">
-          <span className="inline-flex items-center justify-center rounded-full bg-white/90 px-4 py-1.5 text-[12px] font-semibold tracking-[-0.02em] text-[#f5a524] md:text-[13px]">
+          <span className="inline-flex items-center justify-center rounded-full bg-white/90 px-4 py-1.5 text-[12px] font-semibold tracking-[-0.02em] text-[#02acea] md:text-[13px]">
             스낵왕 설치하기
           </span>
           <h2 className="mt-3 text-[24px] font-bold leading-snug tracking-[-0.03em] text-black md:mt-4 md:text-[32px] lg:text-[40px]">

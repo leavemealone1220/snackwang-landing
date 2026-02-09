@@ -20,19 +20,21 @@ export function Hero() {
         <header className="flex items-center justify-between py-6">
           {/* 좌측: 로고 + 네비게이션 (Figma: gap 30px) */}
           <div className="flex items-center gap-[30px]">
-            <Image
-              src="/images/hero/logo.svg"
-              alt="snackwang"
-              width={180}
-              height={35}
-              priority
-              className="h-[28px] w-auto md:h-[35px]"
-            />
+            <a href="/">
+              <Image
+                src="/images/hero/logo.svg"
+                alt="snackwang"
+                width={180}
+                height={35}
+                priority
+                className="h-[28px] w-auto md:h-[35px]"
+              />
+            </a>
 
             <nav className="hidden items-center gap-[40px] rounded-full bg-[#1d1d1d] px-[40px] h-[56px] text-[16px] font-medium leading-[18px] tracking-[-0.32px] text-[#f8f8f9] md:flex">
               <a href="#intro">서비스 소개</a>
               <a href="#faq">F&amp;Q</a>
-              <a href="#contact">문의하기</a>
+              <a href="/apply">문의하기</a>
             </nav>
           </div>
 
